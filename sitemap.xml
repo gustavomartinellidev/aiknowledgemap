@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+
+  <url>
+    <loc>https://aiknowledgemap.org/</loc>
+    <lastmod>2026-04-30</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://aiknowledgemap.org/"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://aiknowledgemap.org/pt-br/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://aiknowledgemap.org/es/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://aiknowledgemap.org/"/>
+  </url>
+
+  <url>
+    <loc>https://aiknowledgemap.org/pt-br/</loc>
+    <lastmod>2026-04-30</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://aiknowledgemap.org/"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://aiknowledgemap.org/pt-br/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://aiknowledgemap.org/es/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://aiknowledgemap.org/"/>
+  </url>
+
+  <url>
+    <loc>https://aiknowledgemap.org/es/</loc>
+    <lastmod>2026-04-30</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://aiknowledgemap.org/"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://aiknowledgemap.org/pt-br/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://aiknowledgemap.org/es/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://aiknowledgemap.org/"/>
+  </url>
+
+</urlset>
