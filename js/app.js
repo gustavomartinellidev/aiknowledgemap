@@ -76,7 +76,7 @@ function copyHoverContent() {
   const text = panel.innerText.trim();
 
   // Monta a referência usando a URL atual (funciona em /, /pt-br/, /es/)
-  const siteName = "AI Map Explorer";
+  const siteName = "AI Knowledge Map";
   const siteUrl = window.location.origin + window.location.pathname;
   const today = new Date().toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
   const reference = `\n\nRetrieved from ${siteName} (${siteUrl}), on ${today}.`;

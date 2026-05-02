@@ -71,7 +71,13 @@ header p {
     overflow: auto;
 }
 
-/* Legend & Controls */
+.site-logo {
+    max-height: 200px;
+    width: auto;
+    display: block;
+    margin: 0 auto;
+}
+
 .controls-overlay {
     position: absolute;
     top: 2rem;
@@ -330,9 +336,8 @@ footer {
     font-weight: 500;
 }
 
-
 @media (max-width: 768px) {
-    header h1 {
-        font-size: 2rem;
+    .site-logo {
+        max-height: 150px;
     }
 }
