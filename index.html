@@ -45,7 +45,8 @@
 
     <!-- Dependencies -->
     <link rel="stylesheet" href="css/style.css">
-    <script type="text/javascript" src="js/d3.v7.min.js"></script>
+    <script src="js/d3.v7.min.js" defer></script>
+    <script src="js/app.js" defer></script>
 
     <link rel="alternate" hreflang="en" href="https://aiknowledgemap.org/" />
     <link rel="alternate" hreflang="pt-BR" href="https://aiknowledgemap.org/pt-br/" />
@@ -56,7 +57,7 @@
 
 <body>
 
-    <header style="position: relative;">
+    <header>
         <h1>
             <img src="aikm_img_name.png" alt="AI Knowledge Map" class="site-logo">
         </h1>
@@ -69,9 +70,10 @@
             <a href="es/" class="lang-flag" hreflang="es" aria-label="Español">🇪🇸</a>
         </div>
         <div class="dark-toggle-container">
-            <button class="btn-toggle" onclick="goDark()">
+            <button class="btn-toggle" aria-label="Toggle dark mode">
                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    aria-hidden="true">
                     <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
                 </svg>
                 Mode
@@ -87,10 +89,95 @@
         </div>
 
         <div class="info-grid">
+            <!-- Column 1: How to Use the Map -->
             <section class="info-card">
                 <h3>
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        aria-hidden="true">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+                        <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                    </svg>
+                    How to Use the Map
+                </h3>
+                <p>The map rewards exploration. A few interactions you might miss:</p>
+                <ul class="info-list">
+                    <li><strong>Click a node's name or circle</strong> to expand or collapse its branch.</li>
+                    <li><strong>Hover</strong> over any node to see its definition and model examples.</li>
+                    <li><strong>Click the hover panel</strong> to copy the definition with an academic reference already attached - perfect for notes and citations.</li>
+                </ul>
+            </section>
+
+            <!-- Column 2: Stay Updated + Feedback + Roadmap (stacked) -->
+            <div class="info-card-column">
+                <section class="info-card">
+                    <h3>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            aria-hidden="true">
+                            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                            <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                        </svg>
+                        Stay Updated
+                    </h3>
+                    <p>Follow the evolution of the AI Knowledge Map. New concepts, tools, and frameworks are added regularly:</p>
+                    <div style="margin-top: 1rem;">
+                        <a href="https://www.linkedin.com/in/gustavomartinelli/" target="_blank" rel="noopener noreferrer">LinkedIn:
+                            @gustavomartinelli</a><br>
+                        <a href="https://github.com/gustavomartinellidev/aiknowledgemap" target="_blank" rel="noopener noreferrer">GitHub: Star the project</a>
+                    </div>
+                </section>
+
+                <section class="info-card">
+                    <h3>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            aria-hidden="true">
+                            <path
+                                d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z">
+                            </path>
+                        </svg>
+                        Feedback
+                    </h3>
+                    <p>
+                        Found an inaccuracy? Have a concept worth adding? Suggestions and contributions are warmly welcomed -
+                        this map grows stronger with the AI community behind it.
+                    </p>
+                    <div style="margin-top: 1rem;">
+                        Submit an issue on <a href="https://github.com/gustavomartinellidev/aiknowledgemap/issues"
+                            target="_blank" rel="noopener noreferrer">GitHub</a>.
+                    </div>
+                </section>
+
+                <section class="info-card">
+                    <h3>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            aria-hidden="true">
+                            <polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"></polygon>
+                            <line x1="9" y1="3" x2="9" y2="18"></line>
+                            <line x1="15" y1="6" x2="15" y2="21"></line>
+                        </svg>
+                        Roadmap
+                    </h3>
+                    <p>What's coming next:</p>
+                    <ul class="info-list">
+                        <li>Additional language translations</li>
+                        <li>Full-text search across all concepts</li>
+                        <li>Glossary view as alphabetical fallback</li>
+                        <li><strong>Evaluation metrics deep-dives</strong> - dedicated explanations for each model evaluation metric, covering when to use it, common pitfalls, and how to interpret it in real scenarios</li>
+                        <li><strong>Hands-on Google Colab notebooks</strong> - simple, ready-to-run training examples for the most common model types, so you can experiment with the concepts you just learned about</li>
+                    </ul>
+                </section>
+            </div>
+
+            <!-- Column 3: About the Project -->
+            <section class="info-card">
+                <h3>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        aria-hidden="true">
                         <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
                         <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
                     </svg>
@@ -116,43 +203,6 @@
                     - for the inspiration, and for the open-source foundation that helped get this project off the ground 😉.
                 </p>
             </section>
-
-            <section class="info-card">
-                <h3>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
-                        <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
-                    </svg>
-                    Stay Updated
-                </h3>
-                <p>Follow the evolution of the AI Knowledge Map. New concepts, tools, and frameworks are added regularly:</p>
-                <div style="margin-top: 1rem;">
-                    <a href="https://www.linkedin.com/in/gustavomartinelli/" target="_blank" rel="noopener noreferrer">LinkedIn:
-                        @gustavomartinelli</a><br>
-                    <a href="https://github.com/gustavomartinellidev/aiknowledgemap" target="_blank" rel="noopener noreferrer">GitHub: Star the project</a>
-                </div>
-            </section>
-
-            <section class="info-card">
-                <h3>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path
-                            d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z">
-                        </path>
-                    </svg>
-                    Feedback
-                </h3>
-                <p>
-                    Found an inaccuracy? Have a concept worth adding? Suggestions and contributions are warmly welcomed -
-                    this map grows stronger with the AI community behind it.
-                </p>
-                <div style="margin-top: 1rem;">
-                    Submit an issue on <a href="https://github.com/gustavomartinellidev/aiknowledgemap/issues"
-                        target="_blank" rel="noopener noreferrer">GitHub</a>.
-                </div>
-            </section>
         </div>
 
     </main>
@@ -162,9 +212,6 @@
     </footer>
 
     <div id="hover-panel" class="hidden"></div>
-
-    <!-- Scripts -->
-    <script src="js/app.js"></script>
 
 </body>
 

@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://seudominio.com/sitemap.xml
+Sitemap: https://aiknowledgemap.org/sitemap.xml

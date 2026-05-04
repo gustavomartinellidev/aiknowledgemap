@@ -7,7 +7,8 @@ let i = 0,
   root;
 
 const tree = d3.tree()
-  .size([height, width]);
+  // .size([height, width]); // substituído por nodeSize abaixo
+  .nodeSize([32, 280]); // [vertical, horizontal] — horizontal é sobrescrito por column layout
 
 const diagonal = d3.linkHorizontal()
   .x(d => d.y)
@@ -19,6 +20,23 @@ const vis = d3.select("#body")
   .attr("height", height + margin[0] + margin[2])
   .append("g")
   .attr("transform", `translate(${margin[3]},${margin[0]})`);
+
+/* =========================
+   LABEL MEASUREMENT (criado UMA vez, fora do update)
+   ========================= */
+const measureCanvas = vis.append("g")
+  .attr("class", "text-measure")
+  .style("visibility", "hidden");
+
+const labelWidthCache = {};
+function measureLabel(name) {
+  if (labelWidthCache[name] !== undefined) return labelWidthCache[name];
+  const tmp = measureCanvas.append("text").text(name);
+  const w = tmp.node().getBBox().width;
+  tmp.remove();
+  labelWidthCache[name] = w;
+  return w;
+}
 
 const hoverPanel = d3.select("#hover-panel");
 let hideTimer = null;
@@ -111,10 +129,51 @@ function update(source) {
   const nodes = treeData.descendants().reverse();
   const links = treeData.links();
 
+  /* === 1. Posicionamento horizontal dinâmico por depth === */
+  const widthLeftByDepth  = {};
+  const widthRightByDepth = {};
   nodes.forEach(d => {
-    d.y = d.depth * 180;
+    const w = measureLabel(d.data.name);
+    const goesLeft = !!(d.children || d._children);
+    const bucket = goesLeft ? widthLeftByDepth : widthRightByDepth;
+    bucket[d.depth] = Math.max(bucket[d.depth] || 0, w);
   });
 
+  const padding = 40;
+  const maxDepth = d3.max(nodes, d => d.depth);
+  const columnX = { 0: 0 };
+  for (let depth = 1; depth <= maxDepth; depth++) {
+    const rightSide = widthRightByDepth[depth - 1] || 0;
+    const leftSide  = widthLeftByDepth[depth]      || 0;
+    columnX[depth] = columnX[depth - 1] + rightSide + leftSide + padding;
+  }
+  nodes.forEach(d => { d.y = columnX[d.depth]; });
+
+  /* === 2. Extent vertical e redimensionamento do SVG === */
+  let x0 = Infinity, x1 = -Infinity;
+  nodes.forEach(d => {
+    if (d.x < x0) x0 = d.x;
+    if (d.x > x1) x1 = d.x;
+  });
+
+  const treeHeight = x1 - x0;
+  const minHeight  = 600;
+  const svgHeight  = Math.max(treeHeight + margin[0] + margin[2], minHeight);
+  const yOffset    = (svgHeight - treeHeight) / 2 - x0;
+
+  const lastColRight = widthRightByDepth[maxDepth] || widthLeftByDepth[maxDepth] || 0;
+  const treeWidth    = columnX[maxDepth] + lastColRight;
+  const svgWidth     = treeWidth + margin[1] + margin[3];
+
+  d3.select("#body svg")
+    .transition().duration(duration)
+    .attr("height", svgHeight)
+    .attr("width",  svgWidth);
+
+  vis.transition().duration(duration)
+    .attr("transform", `translate(${margin[3]}, ${yOffset})`);
+
+  /* === 3. Render nodes/links === */
   const node = vis.selectAll("g.node")
     .data(nodes, d => d.id || (d.id = ++i));
 
@@ -216,6 +275,8 @@ function toggle(d) {
 function goDark() {
   document.body.classList.toggle("dark-Mode");
 }
+
+document.querySelector(".btn-toggle").addEventListener("click", goDark);
 
 d3.json("data.json").then(data => {
   root = d3.hierarchy(data);

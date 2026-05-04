@@ -28,6 +28,7 @@ body {
 }
 
 header {
+    position: relative;
     padding: 3rem 1rem;
     text-align: center;
     background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);
@@ -92,9 +93,28 @@ header p {
 /* Content Sections */
 .info-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(3, 1fr);
     gap: 2rem;
     margin-top: 2rem;
+    align-items: start;
+}
+
+.info-card-column {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.info-list {
+    margin-top: 1rem;
+    padding-left: 1.25rem;
+    line-height: 1.8;
+    font-size: 0.95rem;
+    color: var(--text-muted);
+}
+
+.info-list li {
+    margin-bottom: 0.5rem;
 }
 
 .info-card {
@@ -334,6 +354,12 @@ footer {
     font-family: 'Inter', sans-serif;
     font-size: 14px;
     font-weight: 500;
+}
+
+@media (max-width: 960px) {
+    .info-grid {
+        grid-template-columns: 1fr;
+    }
 }
 
 @media (max-width: 768px) {
