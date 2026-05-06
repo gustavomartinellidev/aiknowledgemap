@@ -9783,20 +9783,167 @@
         {
           "name": "BR",
           "type": "folder",
-          "short_definition": "BR (Belief Revision) is a field of knowledge representation in artificial intelligence that studies formal methods for incorporating new information into a knowledge base while maintaining logical consistency and minimizing unnecessary changes to existing beliefs.",
-          "children": []
+          "short_definition": "Ethical, Legal & Regulatory AI from Brazil.",
+          "children": [
+            {
+              "name": "Brazilian Internet Civil Rights Framework",
+              "type": "url",
+              "short_definition": "The Brazilian Internet Civil Rights Framework is Brazil’s foundational legal framework for internet governance, establishing principles, rights, duties, and liability rules for online activities. It is relevant to AI governance because it structures legal obligations concerning digital services, user rights, data flows, and platform accountability.",
+              "url": "https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2014/lei/l12965.htm"
+            },
+            {
+              "name": "Brazilian General Data Protection Law - LGPD",
+              "type": "url",
+              "short_definition": "The Brazilian General Data Protection Law - LGPD is Brazil’s general data protection law, regulating the processing of personal data by public and private entities. It is central to AI governance because AI systems often depend on personal data and must comply with principles such as purpose limitation, transparency, security, and accountability.",
+              "url": "https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13709compilado.htm"
+            },
+            {
+              "name": "Digital Statute of Children and Adolescents - Digital ECA",
+              "type": "url",
+              "short_definition": "The Digital Statute of Children and Adolescents - Digital ECA is Brazil’s legal framework for the protection of children and adolescents in digital environments. It establishes duties for digital service providers to prevent, mitigate, and respond to risks affecting minors online.",
+              "url": "https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2025/lei/l15211.htm"
+            },
+            {
+              "name": "Legislative Proposal 2338/2023",
+              "type": "url",
+              "short_definition": "It is Brazil’s main legislative proposal for the regulation of artificial intelligence systems. It establishes principles, rights, duties, risk management obligations, transparency requirements, and governance mechanisms for the ethical and responsible development and use of AI in Brazil.",
+              "url": "https://www25.senado.leg.br/web/atividade/materias/-/materia/157233"
+            },
+            {
+              "name": "BAIS - Brazilian Artificial Intelligence Strategy",
+              "type": "url",
+              "short_definition": "The Brazilian Artificial Intelligence Strategy is a national policy instrument created by MCTI Ordinance No. 4,617/2021 to guide AI development, research, innovation, and governance in Brazil. It defines thematic axes for promoting responsible AI adoption and strengthening the national AI ecosystem.",
+              "url": "https://antigo.mctic.gov.br/mctic/opencms/legislacao/portarias/Portaria_MCTI_n_4617_de_06042021.html"
+            },
+            {
+              "name": "BAIP - Brazilian Artificial Intelligence Plan",
+              "type": "url",
+              "short_definition": "The Brazilian Artificial Intelligence Plan is a national investment and policy plan for 2024–2028 aimed at strengthening Brazil’s AI infrastructure, innovation capacity, public-sector applications, workforce development, and technological sovereignty. It is associated with a planned investment of approximately R$ 23 billion.",
+              "url": "https://www.gov.br/mcti/pt-br/acompanhe-o-mcti/noticias/2024/07/plano-brasileiro-de-ia-tera-supercomputador-e-investimento-de-r-23-bilhoes-em-quatro-anos/ia_para_o_bem_de_todos.pdf/@@download/file"
+            },
+            {
+              "name": "Decree 10,332/2020",
+              "type": "url",
+              "short_definition": "Decree 10,332/2020 establishes Brazil’s Digital Government Strategy and governance arrangements for federal digital transformation. It is relevant to AI governance because it supports the modernization, interoperability, and digitalization of public administration, creating institutional foundations for responsible public-sector AI adoption.",
+              "url": "https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2020/decreto/d10332.htm"
+            },
+            {
+              "name": "Law 15,123/2025",
+              "type": "url",
+              "short_definition": "Law 15,123/2025 amends the Brazilian Criminal Code to increase penalties for psychological violence against women when committed through artificial intelligence or other technologies that alter the victim’s image or voice. It is relevant to AI regulation because it addresses harmful uses of synthetic media and technologically mediated abuse.",
+              "url": "https://www.in.gov.br/en/web/dou/-/lei-n-15.123-de-24-de-abril-de-2025-625951858"
+            }
+          ]
         },
         {
           "name": "EU",
           "type": "folder",
-          "short_definition": "EU refers to the European Union, a supranational political and economic union of European member states that develops and enforces shared legislation and regulatory frameworks, including policies governing digital technologies and artificial intelligence.",
-          "children": []
+          "short_definition": "Ethical, Legal & Regulatory AI from Europe.",
+          "children": [
+            {
+              "name": "EU AI Act",
+              "type": "url",
+              "short_definition": "The EU AI Act is a European Union regulation that establishes a risk-based legal framework for the development, placing on the market, deployment, and use of artificial intelligence systems. It sets obligations for AI providers, deployers, importers, and distributors, with stricter requirements for high-risk AI systems and specific rules for general-purpose AI models.",
+              "url": "https://artificialintelligenceact.eu/"
+            },
+            {
+              "name": "GDPR",
+              "type": "url",
+              "short_definition": "The General Data Protection Regulation is the European Union’s core legal framework for the protection of personal data and the regulation of personal data processing. It establishes principles, rights, obligations, and enforcement mechanisms governing how organizations collect, use, store, transfer, and protect personal data.",
+              "url": "https://eur-lex.europa.eu/eli/reg/2016/679/oj/eng"
+            },
+            {
+              "name": "Council of Europe Framework Convention on AI",
+              "type": "url",
+              "short_definition": "The Council of Europe Framework Convention on Artificial Intelligence is an international treaty establishing principles and obligations for ensuring that AI systems are developed and used consistently with human rights, democracy, and the rule of law. It provides a governance framework for public and private sector AI activities within the scope defined by participating states.",
+              "url": "https://www.coe.int/en/web/artificial-intelligence/the-framework-convention-on-artificial-intelligence"
+            },
+            {
+              "name": "GPAI Code of Practice",
+              "type": "url",
+              "short_definition": "The GPAI Code of Practice is a European Union compliance instrument designed to guide providers of general-purpose AI models in meeting obligations related to transparency, copyright, risk management, and systemic risk mitigation. It supports practical implementation of the EU AI Act’s requirements for general-purpose AI governance.",
+              "url": "https://digital-strategy.ec.europa.eu/en/policies/contents-code-gpai"
+            },
+            {
+              "name": "Digital Services Act - DSA",
+              "type": "url",
+              "short_definition": "The Digital Services Act is a European Union regulation governing online intermediary services, including hosting platforms, online marketplaces, and very large online platforms and search engines. It establishes due diligence, transparency, risk assessment, and accountability obligations for managing illegal content, systemic risks, and user protection in digital services.",
+              "url": "https://digital-strategy.ec.europa.eu/en/policies/digital-services-act"
+            },
+            {
+              "name": "Cyber Resilience Act - CRA",
+              "type": "url",
+              "short_definition": "The Cyber Resilience Act is a European Union regulation that establishes cybersecurity requirements for products with digital elements throughout their lifecycle. It imposes obligations on manufacturers, importers, and distributors to ensure secure design, vulnerability handling, conformity assessment, and incident reporting.",
+              "url": "https://digital-strategy.ec.europa.eu/en/policies/cyber-resilience-act"
+            },
+            {
+              "name": "NIS2 Directive",
+              "type": "url",
+              "short_definition": "The NIS2 Directive is a European Union cybersecurity directive that establishes risk management, incident reporting, and supervisory obligations for essential and important entities across critical sectors. It strengthens the EU’s cybersecurity framework by expanding sectoral coverage, harmonizing security requirements, and introducing stricter enforcement mechanisms.",
+              "url": "https://digital-strategy.ec.europa.eu/en/policies/nis2-directive"
+            },
+            {
+              "name": "Product Liability Directive",
+              "type": "url",
+              "short_definition": "The Product Liability Directive is a European Union legal framework that establishes rules for strict liability when defective products cause damage to individuals or property. Its updated framework extends liability concepts to modern digital products, including software and AI-enabled systems, by clarifying how defects, damage, and evidence may be assessed in technologically complex contexts.",
+              "url": "https://single-market-economy.ec.europa.eu/single-market/goods/free-movement-sectors/liability-defective-products_en"
+            }
+          ]
         },
         {
           "name": "US",
           "type": "folder",
-          "short_definition": "US, commonly referring to Uncertainty Sampling, is an active learning strategy in which the learning algorithm selects unlabeled instances for annotation based on maximal prediction uncertainty to improve model performance efficiently.",
-          "children": []
+          "short_definition": "Ethical, Legal & Regulatory AI from USA.",
+          "children": [
+            {
+              "name": "Executive Order 14179",
+              "type": "url",
+              "short_definition": "Executive Order 14179, titled “Removing Barriers to American Leadership in Artificial Intelligence,” establishes federal policy to promote U.S. leadership in AI by reducing regulatory barriers and directing the development of an AI action plan. It emphasizes innovation, competitiveness, national security, and the removal of prior federal AI policies considered inconsistent with those goals.",
+              "url": "https://www.federalregister.gov/documents/2025/01/31/2025-02172/removing-barriers-to-american-leadership-in-artificial-intelligence"
+              },
+              {
+              "name": "OMB M-25-21 — Federal AI Governance",
+              "type": "url",
+              "short_definition": "OMB Memorandum M-25-21 provides federal agency guidance for accelerating the use of artificial intelligence while maintaining governance, accountability, public trust, civil rights, civil liberties, and privacy safeguards. It structures how U.S. federal agencies should manage AI use, risk, and oversight.",
+              "url": "https://www.whitehouse.gov/wp-content/uploads/2025/02/M-25-21-Accelerating-Federal-Use-of-AI-through-Innovation-Governance-and-Public-Trust.pdf"
+              },
+              {
+              "name": "FTC Act / AI Enforcement",
+              "type": "url",
+              "short_definition": "The Federal Trade Commission applies Section 5 of the FTC Act to artificial intelligence by addressing unfair or deceptive acts or practices involving AI systems, AI claims, and AI-enabled consumer harm. This enforcement approach treats AI-related misconduct as subject to existing consumer protection and competition law.",
+              "url": "https://www.ftc.gov/industry/technology/artificial-intelligence"
+              },
+              {
+              "name": "Civil Rights Laws / EEOC Algorithmic Fairness",
+              "type": "url",
+              "short_definition": "Civil rights laws apply to algorithmic and AI-based employment tools when they affect hiring, promotion, assessment, termination, or other employment decisions. The EEOC’s algorithmic fairness initiative addresses how AI systems may create unlawful discrimination under federal equal employment opportunity laws.",
+              "url": "https://www.eeoc.gov/newsroom/eeoc-launches-initiative-artificial-intelligence-and-algorithmic-fairness"
+              },
+              {
+              "name": "Colorado AI Act",
+              "type": "url",
+              "short_definition": "The Colorado AI Act establishes consumer protection duties for developers and deployers of high-risk artificial intelligence systems, particularly obligations to use reasonable care to prevent algorithmic discrimination. It includes requirements related to risk management, impact assessments, disclosures, consumer notices, and attorney general enforcement.",
+              "url": "https://leg.colorado.gov/bills/sb24-205"
+              },
+              {
+              "name": "California AI Transparency Act",
+              "type": "url",
+              "short_definition": "The California AI Transparency Act imposes transparency obligations on covered generative AI providers, including requirements related to AI-generated content identification, provenance, and detection. It is designed to improve public awareness when synthetic content is created or modified by generative AI systems.",
+              "url": "https://leginfo.legislature.ca.gov/faces/billNavClient.xhtml?bill_id=202320240SB942"
+              },
+              {
+              "name": "Utah AI Policy Act",
+              "type": "url",
+              "short_definition": "The Utah AI Policy Act creates state-level requirements for certain uses of artificial intelligence, including disclosure duties and liability rules when AI is used in regulated interactions. It also establishes an AI policy framework that includes a regulatory learning laboratory for supervised innovation.",
+              "url": "https://le.utah.gov/xcode/Title13/Chapter72/13-72.html?v=C13-72_2024050120240501"
+              },
+              {
+              "name": "HIPAA / FDA AI-ML Medical Software Regulation",
+              "type": "url",
+              "short_definition": "HIPAA governs the privacy and security of protected health information used in or affected by AI systems, while FDA regulation addresses AI/ML-enabled software that qualifies as medical device software. Together, these frameworks shape the governance of healthcare AI through data protection, safety, effectiveness, lifecycle management, and regulatory oversight.",
+              "url": "https://www.fda.gov/medical-devices/software-medical-device-samd/artificial-intelligence-software-medical-device"
+              }
+          ]
         }
       ]
     },
@@ -9808,18 +9955,18 @@
         {
           "name": "Standards",
           "type": "folder",
-          "short_definition": "",
+          "short_definition": "A standard is a formally defined specification, guideline, or requirement developed by a recognized body to promote consistency, interoperability, safety, quality, or accountability. In AI, standards support common terminology, risk management, governance, technical evaluation, and responsible system development.",
           "children": [
             {
               "name": "ISO/IEC 22989:2022 - Information technology - Artificial intelligence - Artificial intelligence concepts and terminology",
               "type": "url",
-              "short_definition": "",
+              "short_definition": "ISO/IEC 22989:2022 is an international standard that defines foundational concepts and terminology for artificial intelligence. It establishes a common vocabulary to support consistency across AI-related standards, governance practices, and technical documentation.",
               "url": "https://www.iso.org/standard/74296.html"
             },
             {
               "name": "ISO/IEC 23053:2022 - Framework for Artificial Intelligence (AI) Systems Using Machine Learning (ML)",
               "type": "url",
-              "short_definition": "",
+              "short_definition": "ISO/IEC 23053:2022 provides a framework for describing artificial intelligence systems that use machine learning. It identifies key system components, lifecycle considerations, and architectural concepts relevant to the development and operation of ML-based AI systems.",
               "url": "https://www.iso.org/standard/74438.html"
             },
             {
@@ -9831,19 +9978,19 @@
             {
               "name": "ISO/IEC TR 24027:2021 - Information technology - Artificial intelligence (AI) - Bias in AI systems and AI aided decision making",
               "type": "url",
-              "short_definition": "",
+              "short_definition": "ISO/IEC TR 24027:2021 is a technical report that examines sources, types, and impacts of bias in AI systems and AI-aided decision-making. It supports the identification and analysis of bias-related risks throughout the AI system lifecycle.",
               "url": "https://www.iso.org/standard/77607.html"
             },
             {
               "name": "ISO/IEC TR 24368:2022 - Information technology - Artificial intelligence - Overview of ethical and societal concerns",
               "type": "url",
-              "short_definition": "",
+              "short_definition": "ISO/IEC TR 24368:2022 is a technical report that provides an overview of ethical and societal concerns associated with artificial intelligence. It addresses issues such as accountability, transparency, fairness, privacy, safety, and human oversight in AI contexts.",
               "url": "https://www.iso.org/standard/78507.html"
             },
             {
               "name": "ISO/IEC 38507:2022 - Information technology - Governance of IT - Governance implications of the use of artificial intelligence by organizations",
               "type": "url",
-              "short_definition": "",
+              "short_definition": "ISO/IEC 38507:2022 provides guidance for governing the organizational use of artificial intelligence within the broader governance of information technology. It focuses on governance responsibilities, decision-making, accountability, and oversight related to AI adoption and use.",
               "url": "https://www.iso.org/standard/56641.html"
             },
             {
@@ -9857,24 +10004,24 @@
         {
           "name": "Frameworks",
           "type": "folder",
-          "short_definition": "to be defined",
+          "short_definition": "A framework is a structured set of principles, concepts, processes, and practices used to guide the design, governance, assessment, or management of artificial intelligence systems. In AI, frameworks typically provide high-level guidance rather than prescriptive technical requirements.",
           "children": [
             {
               "name": "Microsoft - Responsible AI Standard",
               "type": "url",
-              "short_definition": "",
+              "short_definition": "The Microsoft Responsible AI Standard is an internal governance framework that defines requirements for the development and deployment of AI systems according to principles such as fairness, reliability, privacy, inclusiveness, transparency, and accountability. It operationalizes responsible AI practices through controls, review processes, and implementation guidance.",
               "url": "https://www.microsoft.com/en-us/ai/responsible-ai"
             },
             {
               "name": "Model AI Governance Framework for Agentic AI - Version 1.0",
               "type": "url",
-              "short_definition": "",
+              "short_definition": "The Model AI Governance Framework for Agentic AI - Version 1.0 is a governance framework focused on AI systems capable of autonomous or semi-autonomous planning, decision-making, and action. It provides guidance for managing risks related to agency, human oversight, accountability, safety, transparency, and operational control.",
               "url": "https://www.imda.gov.sg/-/media/imda/files/about/emerging-tech-and-research/artificial-intelligence/mgf-for-agentic-ai.pdf"
             },
             {
               "name": "Model Artificial Intelligence Governance Framework - 2nd Edition",
               "type": "url",
-              "short_definition": "",
+              "short_definition": "The Model Artificial Intelligence Governance Framework - 2nd Edition is a practical governance framework that guides organizations in the responsible development and deployment of AI systems. It emphasizes internal governance structures, human involvement in decision-making, operations management, stakeholder communication, and risk-based accountability.",
               "url": "https://www.imda.gov.sg/-/media/imda/files/infocomm-media-landscape/sg-digital/tech-pillars/artificial-intelligence/second-edition-of-the-model-ai-governance-framework.pdf"
             },
             {
