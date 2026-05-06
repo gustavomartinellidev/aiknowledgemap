@@ -24,8 +24,8 @@
 </p>
 
 ---
-
-## 📖 About
+ 
+## 📖 About.
 
 The **AI Knowledge Map** is a curated, openly accessible visualization of the artificial intelligence ecosystem — from foundational concepts to tools, ethics, and governance.
 
