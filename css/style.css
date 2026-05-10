@@ -183,7 +183,7 @@ header p {
 }
 
 #hover-panel::after {
-    content: "Click to copy";
+    content: attr(data-copy-label);
     position: absolute;
     top: 0.5rem;
     right: 0.75rem;
@@ -196,7 +196,7 @@ header p {
 }
 
 #hover-panel.copied::after {
-    content: "Text copied ✓";
+    content: attr(data-copied-label);
     color: #10b981;
     opacity: 1;
 }
