@@ -96,8 +96,15 @@ function copyHoverContent() {
   // Monta a referência usando a URL atual (funciona em /, /pt-br/, /es/)
   const siteName = "AI Knowledge Map";
   const siteUrl = window.location.origin + window.location.pathname;
-  const today = new Date().toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
-  const reference = `\n\nRetrieved from ${siteName} (${siteUrl}), on ${today}.`;
+  const lang = document.documentElement.lang || "en";
+  const templates = {
+    "en": (n, u, d) => `Source: from ${n} (${u}) on ${d}.`,
+    "pt-BR": (n, u, d) => `Fonte: ${n} (${u}) em ${d}.`,
+    "es": (n, u, d) => `Fuente: ${n} (${u}) el ${d}.`
+  };
+  const dateLocales = { "en": "en-US", "pt-BR": "pt-BR", "es": "es-ES" };
+  const today = new Date().toLocaleDateString(dateLocales[lang] || "en-US", { year: "numeric", month: "long", day: "numeric" });
+  const reference = "\n\n" + (templates[lang] || templates["en"])(siteName, siteUrl, today);
 
   const textWithReference = text + reference;
 
