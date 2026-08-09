@@ -7,8 +7,7 @@ let i = 0,
   root;
 
 const tree = d3.tree()
-  // .size([height, width]); // substituído por nodeSize abaixo
-  .nodeSize([32, 280]); // [vertical, horizontal] — horizontal é sobrescrito por column layout
+  .nodeSize([32, 280]);
 
 const diagonal = d3.linkHorizontal()
   .x(d => d.y)
@@ -21,9 +20,6 @@ const vis = d3.select("#body")
   .append("g")
   .attr("transform", `translate(${margin[3]},${margin[0]})`);
 
-/* =========================
-   LABEL MEASUREMENT (criado UMA vez, fora do update)
-   ========================= */
 const measureCanvas = vis.append("g")
   .attr("class", "text-measure")
   .style("visibility", "hidden");
@@ -88,12 +84,10 @@ function renderPanel(d) {
   `;
 }
 
-
 function copyHoverContent() {
   const panel = document.getElementById("hover-panel");
   const text = panel.innerText.trim();
 
-  // Monta a referência usando a URL atual (funciona em /, /pt-br/, /es/)
   const siteName = "AI Knowledge Map";
   const siteUrl = window.location.origin + window.location.pathname;
   const lang = document.documentElement.lang || "en";
@@ -108,11 +102,9 @@ function copyHoverContent() {
 
   const textWithReference = text + reference;
 
-  // Clipboard moderno
   if (navigator.clipboard && navigator.clipboard.writeText) {
     navigator.clipboard.writeText(textWithReference);
   } else {
-    // Fallback
     const textarea = document.createElement("textarea");
     textarea.value = textWithReference;
     textarea.style.position = "fixed";
@@ -123,7 +115,6 @@ function copyHoverContent() {
     document.body.removeChild(textarea);
   }
 
-  // Feedback visual
   panel.classList.add("copied");
   setTimeout(() => {
     panel.classList.remove("copied");
@@ -136,7 +127,6 @@ function update(source) {
   const nodes = treeData.descendants().reverse();
   const links = treeData.links();
 
-  /* === 1. Posicionamento horizontal dinâmico por depth === */
   const widthLeftByDepth  = {};
   const widthRightByDepth = {};
   nodes.forEach(d => {
@@ -156,7 +146,6 @@ function update(source) {
   }
   nodes.forEach(d => { d.y = columnX[d.depth]; });
 
-  /* === 2. Extent vertical e redimensionamento do SVG === */
   let x0 = Infinity, x1 = -Infinity;
   nodes.forEach(d => {
     if (d.x < x0) x0 = d.x;
@@ -180,7 +169,6 @@ function update(source) {
   vis.transition().duration(duration)
     .attr("transform", `translate(${margin[3]}, ${yOffset})`);
 
-  /* === 3. Render nodes/links === */
   const node = vis.selectAll("g.node")
     .data(nodes, d => d.id || (d.id = ++i));
 
@@ -189,8 +177,19 @@ function update(source) {
     .attr("class", "node")
     .attr("transform", `translate(${source.y0},${source.x0})`)
     .on("click", (event, d) => {
+      const action = d.children ? "collapse" : (d._children ? "expand" : "leaf");
+
       toggle(d);
       update(d);
+
+      if (window.umami) {
+        umami.track("node_click", {
+          node_label: d.data.name,
+          depth: d.depth,
+          action: action,
+          lang: getLang()
+        });
+      }
     })
     .on("mouseover", (event, d) => showPanel(event, d))
     .on("mousemove", (event) => movePanel(event))
@@ -203,12 +202,20 @@ function update(source) {
   nodeEnter.append("a")
     .attr("target", "_blank")
     .attr("href", d => d.data.url)
+    .on("click", (event, d) => {
+      if (window.umami && d.data.url) {
+        umami.track("outbound_click", {
+          node_label: d.data.name,
+          url: d.data.url,
+          lang: getLang()
+        });
+      }
+    })
     .append("text")
     .attr("x", d => d.children || d._children ? -15 : 15)
     .attr("dy", ".35em")
     .attr("text-anchor", d => d.children || d._children ? "end" : "start")
     .text(d => d.data.name)
-    //.style("fill", d => d.data.free ? "black" : "#999")
     .style("fill-opacity", 1e-6);
 
   nodeEnter.append("title")
@@ -269,6 +276,22 @@ function update(source) {
   });
 }
 
+function getLang() {
+  const p = window.location.pathname;
+  if (p.startsWith("/pt-br/")) return "pt-br";
+  if (p.startsWith("/es/"))    return "es";
+  return "en";
+}
+
+function getSignupMessage(lang) {
+  const messages = {
+    "pt-br": "Obrigado! Levamos sua privacidade a sério — confirme sua inscrição pelo link no seu e-mail.",
+    "es": "¡Gracias! Nos tomamos en serio tu privacidad — confirma tu suscripción mediante el enlace en tu correo.",
+    "en": "Thanks! We take your privacy seriously — please confirm your subscription via the link in your inbox."
+  };
+  return messages[lang] || messages["en"];
+}
+
 function toggle(d) {
   if (d.children) {
     d._children = d.children;
@@ -318,3 +341,44 @@ hoverPanel
     event.preventDefault();      // impede seleção
     copyHoverContent();          // copia tudo
   });
+
+/* =========================
+   NEWSLETTER SIGNUP (AJAX + TRACKING)
+   ========================= */
+const newsletterForm = document.querySelector("#newsletter-form");
+const newsletterMsg = document.querySelector("#newsletter-msg");
+
+newsletterForm?.addEventListener("submit", async (event) => {
+  event.preventDefault(); // impede o popup / navegação
+
+  const formData = new FormData(newsletterForm);
+
+  try {
+    await fetch(newsletterForm.action, {
+      method: "POST",
+      body: formData,
+      mode: "no-cors" // Buttondown embed não retorna CORS; o POST é aceito mesmo assim
+    });
+
+    // sucesso (com no-cors não dá pra ler o status, então assumimos ok)
+    newsletterForm.reset();
+    if (newsletterMsg) {
+      newsletterMsg.textContent = getSignupMessage(getLang());
+      newsletterMsg.classList.remove("hidden");
+    }
+    if (window.umami) umami.track("newsletter_signup", { lang: getLang() });
+
+  } catch (err) {
+    if (newsletterMsg) {
+      const errors = {
+        "pt-br": "Algo deu errado. Tente novamente.",
+        "es": "Algo salió mal. Inténtalo de nuevo.",
+        "en": "Something went wrong. Please try again."
+      };
+      newsletterMsg.textContent = errors[getLang()] || errors["en"];
+      newsletterMsg.classList.remove("hidden");
+    }
+  }
+});
+
+if (!newsletterForm) console.warn("newsletter-form não encontrado no DOM");

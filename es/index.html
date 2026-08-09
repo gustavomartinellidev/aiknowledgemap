@@ -55,6 +55,10 @@
     <link rel="alternate" hreflang="es" href="https://aiknowledgemap.org/es/" />
     <link rel="alternate" hreflang="x-default" href="https://aiknowledgemap.org/" />
     
+    <script defer src="https://cloud.umami.is/script.js" 
+            data-website-id="514e54d5-efb2-42ce-ac12-b586e3b3f8ba"
+            data-domains="aiknowledgemap.org"></script>
+            
 </head>
 
 <body>
@@ -123,12 +127,17 @@
                         </svg>
                         Acompaña el proyecto
                     </h3>
-                    <p>Sigue la evolución del AI Knowledge Map. Nuevos conceptos, herramientas y frameworks se añaden regularmente:</p>
-                    <div style="margin-top: 1rem;">
-                        <a href="https://www.linkedin.com/in/gustavomartinelli/" target="_blank" rel="noopener noreferrer">LinkedIn:
-                            @gustavomartinelli</a><br>
-                        <a href="https://github.com/gustavomartinellidev/aiknowledgemap" target="_blank" rel="noopener noreferrer">GitHub: Dale una estrella al proyecto</a>
-                    </div>
+                    <p>Se añaden nuevos conceptos, herramientas y frameworks con regularidad. Recibe un correo cuando el mapa crezca — sin spam, cancela cuando quieras.</p>
+                    <form
+                        id="newsletter-form"
+                        action="https://buttondown.com/api/emails/embed-subscribe/aiknowledgemap"
+                        method="post"
+                        style="margin-top: 1rem;">
+                        <label for="bd-email" class="sr-only">Correo electrónico</label>
+                        <input type="email" id="bd-email" name="email" placeholder="tucorreo@ejemplo.com" required>
+                        <button type="submit">Suscribirse</button>
+                    </form>
+                    <p id="newsletter-msg" class="newsletter-msg hidden" role="status" aria-live="polite"></p>
                 </section>
 
                 <section class="info-card">
@@ -215,6 +224,11 @@
 
     <footer>
         <p>Licenciado bajo la MIT License 2026 - AI Knowledge Map. Hecho para la comunidad de IA.</p>
+        <p class="site-credit">
+            Desarrollado por 
+            <a href="https://www.linkedin.com/in/gustavomartinelli/" target="_blank" rel="noopener noreferrer">Gustavo Martinelli</a>
+            · <a href="https://github.com/gustavomartinellidev/aiknowledgemap" target="_blank" rel="noopener noreferrer">Source on GitHub</a>
+        </p>
     </footer>
 
     <div id="hover-panel" class="hidden"

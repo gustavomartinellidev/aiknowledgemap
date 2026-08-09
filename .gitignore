@@ -6,6 +6,7 @@ Thumbs.db
 .vscode/
 .idea/
 *.swp
+URL UMAMI.txt
 
 # Logs
 *.log
