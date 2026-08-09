@@ -158,6 +158,64 @@ header p {
     text-decoration: underline;
 }
 
+.info-card form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-top: 1rem;
+}
+
+.info-card form input[type="email"] {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background: #fff;
+    color: #222;
+}
+
+.info-card form input[type="email"]::placeholder {
+    color: #242424;
+}
+
+.newsletter-msg {
+    margin-top: 0.75rem;
+    font-size: 0.9rem;
+    color: #16a34a;
+}
+
+.newsletter-msg.hidden {
+    display: none;
+}
+
+.info-card form button {
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 6px;
+    background: #2563eb;
+    color: #fff;
+    cursor: pointer;
+    transition: background 0.15s ease;
+}
+
+.info-card form button:hover {
+    background: #1d4ed8;
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px; height: 1px;
+    padding: 0; margin: -1px;
+    overflow: hidden;
+    clip: rect(0,0,0,0);
+    white-space: nowrap;
+    border: 0;
+}
+
 /* Hover Panel */
 #hover-panel {
     position: absolute;
@@ -354,6 +412,14 @@ footer {
     font-family: 'Inter', sans-serif;
     font-size: 14px;
     font-weight: 500;
+}
+
+.dark-Mode .info-card form input[type="email"] {
+    background: #1e293b;
+}
+
+.dark-Mode .info-card form input[type="email"]::placeholder {
+    color: #f8fafc;
 }
 
 @media (max-width: 960px) {
