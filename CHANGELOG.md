@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.0.1] - 2026-08-21
+
+### Added
+- SEO on-page: self-referencing canonical and Schema.org `WebSite` JSON-LD across all three locales (en, pt-BR, es).
+
+---
+
 ## [1.0.0] - 2026-05-06
 
 ### 🎉 Initial Release
