@@ -16,3 +16,8 @@ URL UMAMI.txt
 /public/
 TODO.txt
 /img/
+
+# Claude Code: ignore only sensitive/local files, keep spec-kit skills tracked
+.claude/settings.local.json
+.claude/.credentials*
+.claude/**/*.local.json
