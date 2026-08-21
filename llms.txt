@@ -1,0 +1,14 @@
+# AI Knowledge Map
+
+> Explore Artificial Intelligence visually. A free, interactive knowledge map of AI concepts, techniques, tools, ethics, and governance — for students, researchers, and professionals.
+
+AI Knowledge Map is a static, multilingual, open educational project built with D3.js. It presents the artificial intelligence landscape — from foundational concepts and techniques to tools, ethics, governance, and risk management — as an interactive visual map. Content is available in English, Brazilian Portuguese, and Spanish.
+
+## Links
+- [English](https://aiknowledgemap.org/)
+- [Brazilian Portuguese](https://aiknowledgemap.org/pt-br/)
+- [Spanish](https://aiknowledgemap.org/es/)
+
+## Resources
+- [Sitemap](https://aiknowledgemap.org/sitemap.xml)
+- [Source code (GitHub)](https://github.com/gustavomartinellidev/aiknowledgemap)
