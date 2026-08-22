@@ -6,16 +6,13 @@ Thumbs.db
 .vscode/
 .idea/
 *.swp
-URL UMAMI.txt
 
 # Logs
 *.log
 
 # Project
 .venvai/
-/public/
-TODO.txt
-/img/
+auxiliar/
 
 # Claude Code: ignore only sensitive/local files, keep spec-kit skills tracked
 .claude/settings.local.json
