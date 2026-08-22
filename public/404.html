@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 — Page Not Found | AI Knowledge Map</title>
+    <meta name="robots" content="noindex">
+    <!-- Favicons -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <meta name="theme-color" content="#2563eb">
+    <!-- Google Fonts (same families as the site) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg: #f8fafc;
+            --card: #ffffff;
+            --text: #1e293b;
+            --muted: #64748b;
+            --border: #e2e8f0;
+            --brand: #2563eb;
+            --brand-hover: #1d4ed8;
+        }
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg: #0f172a;
+                --card: #1e293b;
+                --text: #e2e8f0;
+                --muted: #94a3b8;
+                --border: #334155;
+                --brand: #3b82f6;
+                --brand-hover: #60a5fa;
+            }
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            line-height: 1.6;
+        }
+        .card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            max-width: 560px;
+            width: 100%;
+            padding: 48px 40px;
+            text-align: center;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+        }
+        .code {
+            font-family: 'Outfit', sans-serif;
+            font-size: 72px;
+            font-weight: 700;
+            color: var(--brand);
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+        .block { margin-top: 28px; }
+        .block:first-of-type { margin-top: 20px; }
+        .block h2 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        .block p {
+            color: var(--muted);
+            font-size: 15px;
+            margin-bottom: 12px;
+        }
+        .home-link {
+            display: inline-block;
+            padding: 10px 22px;
+            background: var(--brand);
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 14px;
+            transition: background 0.15s ease;
+        }
+        .home-link:hover { background: var(--brand-hover); }
+        .divider {
+            height: 1px;
+            background: var(--border);
+            margin: 28px 0 4px;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <main class="card">
+        <div class="code">404</div>
+
+        <section class="block" lang="en">
+            <h2>Page not found</h2>
+            <p>The page you're looking for doesn't exist or has moved.</p>
+            <a class="home-link" href="/">Go to homepage</a>
+        </section>
+
+        <hr class="divider">
+
+        <section class="block" lang="pt-BR">
+            <h2>Página não encontrada</h2>
+            <p>A página que você procura não existe ou foi movida.</p>
+            <a class="home-link" href="/pt-br/">Ir para a página inicial</a>
+        </section>
+
+        <hr class="divider">
+
+        <section class="block" lang="es">
+            <h2>Página no encontrada</h2>
+            <p>La página que buscas no existe o se ha movido.</p>
+            <a class="home-link" href="/es/">Ir a la página de inicio</a>
+        </section>
+    </main>
+
+    <!-- Analytics: production-only (data-domains gates preview *.pages.dev) -->
+    <script defer src="https://cloud.umami.is/script.js"
+            data-website-id="514e54d5-efb2-42ce-ac12-b586e3b3f8ba"
+            data-domains="aiknowledgemap.org"></script>
+</body>
+</html>
