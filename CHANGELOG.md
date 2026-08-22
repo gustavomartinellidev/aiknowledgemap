@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased]
+
+### Added
+- Trilingual 404 page (`public/404.html`), served with a real HTTP 404 status.
+- GitHub Spec Kit scaffolding (`.specify/`, Claude Code skills) for spec-driven development; kept in the repo, excluded from the published site.
+
+### Changed
+- Serve the site from `./public/` and declare the Pages build output directory in `wrangler.toml`, keeping tooling and docs out of the deployed site.
+
+### Removed
+- `.assetsignore` (not honored in the Cloudflare Pages Git integration).
+
 ## [1.0.1] - 2026-08-21
 
 ### Added
