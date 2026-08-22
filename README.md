@@ -66,9 +66,10 @@ git clone https://github.com/gustavomartinellidev/aiknowledgemap.git
 cd aiknowledgemap
 ```
 
-Start a local server — pick whichever you have installed:
-
+The site is served from `public/`. Enter it, then start a local server — pick whichever you have installed:
 ```bash
+cd public
+
 # Python 3
 python3 -m http.server 8000
 
@@ -85,32 +86,38 @@ Then open <http://localhost:8000> in your browser.
 
 ```
 aiknowledgemap/
-├── index.html            # English (default locale)
-├── pt-br/
-|   ├── data.json
-│   └── index.html        # Portuguese (BR) locale
-├── es/
-|   ├── data.json
-│   └── index.html        # Spanish locale
-├── css/
-│   └── style.css         # Theme, layout, dark mode
-├── js/
-│   ├── app.js            # D3 tree logic, hover panel, copy-to-clipboard
-│   └── d3.v7.min.js      # D3.js library
-├── data.json             # Knowledge map dataset (the heart of the project)
-├── aikm_img_name.png     # Logo
+├── public/                       # Published site — Cloudflare Pages output dir
+│   ├── index.html                # English (default locale)
+│   ├── pt-br/
+│   │   ├── data.json
+│   │   └── index.html            # Portuguese (BR) locale
+│   ├── es/
+│   │   ├── data.json
+│   │   └── index.html            # Spanish locale
+│   ├── css/
+│   │   └── style.css             # Theme, layout, dark mode
+│   ├── js/
+│   │   ├── app.js                # D3 tree logic, hover panel, copy-to-clipboard
+│   │   └── d3.v7.min.js          # D3.js library
+│   ├── data.json                 # Knowledge map dataset (the heart of the project)
+│   ├── 404.html                  # Trilingual not-found page
+│   ├── _headers                  # Security & cache headers
+│   ├── aikm_img_name.png         # Logo (header)
+│   ├── aikm_logo.jpg             # OG / social image
+│   ├── android-chrome-192x192.png
+│   ├── android-chrome-512x512.png
+│   ├── apple-touch-icon.png
+│   ├── favicon-16x16.png
+│   ├── favicon-32x32.png
+│   ├── favicon.ico
+│   ├── site.webmanifest
+│   ├── sitemap.xml
+│   └── robots.txt
+├── wrangler.toml                 # Declares Pages build output dir (./public)
+├── .specify/                     # GitHub Spec Kit (spec-driven development)
+├── .claude/
+│   └── skills/                   # Claude Code spec-kit skills
 ├── .gitignore
-├── _headers
-├── aikm_logo.jpg
-├── android-chrome-192x192.png
-├── android-chrome-512x512.png
-├── apple-touch-icon.png
-├── favicon-16x16.png
-├── favicon-32x32.png
-├── favicon.ico
-├── sitemap.xml
-├── robots.txt
-├── site.webmanifest
 ├── LICENSE
 ├── CHANGELOG.md
 └── README.md
