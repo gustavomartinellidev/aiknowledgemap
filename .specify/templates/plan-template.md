@@ -40,7 +40,35 @@
 
 *GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
 
-[Gates determined based on constitution file]
+*Gates below are derived from the project constitution (v1.1.0). Mark each PASS,
+FAIL, or N/A with a one-line justification. Any FAIL requires an entry in
+Complexity Tracking or a MAJOR constitutional amendment before proceeding.*
+
+- [ ] **I. Static-First** — The feature ships as pre-built HTML/CSS/JS/static
+  assets with no backend, dynamic runtime, or runtime secret. Any server-side
+  need is delegated to a static-compatible third party. Introducing a backend
+  requires a prior MAJOR amendment (not this plan).
+- [ ] **II. Trilingual Parity** — Any i18n content or shared-asset change touches
+  all three entry documents (root `/`, `/pt-br/`, `/es/`) in the same PR; no
+  locale drifts. Partial locale updates are a FAIL even if untouched locales
+  still render.
+- [ ] **III. Cache-Busting** — Any change to a file under `/css/` or `/js/` bumps
+  the `?v=N` query string on every reference to it, across all three
+  `index.html`, in the same PR.
+- [ ] **IV. SEO & Accessibility Baseline** — The plan preserves the on-page
+  baseline (canonical, `WebSite` JSON-LD, OG image, heading order, contrast,
+  `llms.txt`) and keeps Lighthouse/PSI Accessibility = 1.0, SEO = 1.0,
+  agentic-browsing = 1.0 on all three URLs. Third-party verification stays out of
+  the HTML (DNS TXT).
+- [ ] **V. Release Discipline** — Delivery flows branch → PR → green Cloudflare
+  Pages check → merge; no direct push to `main`.
+- [ ] **VI. Measurement Integrity** — Any analytics touched is validated in
+  production only (not `*.pages.dev`); event semantics stay documented and stable
+  (`newsletter_signup` = intent, not confirmation).
+- [ ] **Performance & Third-Party Debt** — The feature introduces no new
+  third-party cookie or Best-Practices/TBT regression without written
+  justification; no verification script is removed before its DNS TXT alternative
+  is confirmed active.
 
 ## Project Structure
 
