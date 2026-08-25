@@ -116,4 +116,4 @@ release and quality gates.
   scores (Principle III), and release flow (Principle IV) before merge.
 - **Dates**: recorded in ISO `YYYY-MM-DD`.
 
-**Version**: 1.0.0 · **Ratified**: TODO(RATIFICATION_DATE) · **Last Amended**: TODO(AMEND_DATE)
+**Version**: 1.0.0 · **Ratified**: 2026-08-25(RATIFICATION_DATE) · **Last Amended**: 2026-08-25(AMEND_DATE)
