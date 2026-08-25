@@ -28,6 +28,7 @@ writing this spec found the following gaps, which set the scope:
 | `start_url` is `/` for all three locales | A visitor who installs from `/pt-br/` or `/es/` launches into **English**. The install is silently wrong for two of three audiences. |
 | No standalone-capable declaration for iOS Safari, and no iOS-specific app title | iOS ignores most manifest fields; without these, "Add to Home Screen" can open in a browser chrome rather than standalone, under a truncated page title. |
 | No declared manifest language/direction | Assistive technology and app listings have no declared language for the app name. |
+| `apple-touch-icon.png` has a transparent background (~68 % of its pixels) | iOS composites transparency onto **black**, so the home-screen icon today sits on a black field rather than the site's own background. |
 
 Icon **dimensions** were verified as correct (192×192, 512×512, 180×180), so no icon
 re-cutting is required for the base sizes.
@@ -198,7 +199,7 @@ resulting icon and observe the chrome, icon, and title.
 
 ## Assumptions
 
-- **Existing assets are the starting point.** The current `site.webmanifest`, `android-chrome-192x192.png`, `android-chrome-512x512.png`, `apple-touch-icon.png`, and favicons are corrected and extended rather than replaced. Their dimensions were verified correct (192×192, 512×512, 180×180); only declarations and, for the mask-safe icon, artwork treatment are in question.
+- **Existing assets are the starting point.** The current `site.webmanifest`, `android-chrome-192x192.png`, `android-chrome-512x512.png`, `apple-touch-icon.png`, and favicons are corrected and extended rather than replaced. Their dimensions were verified correct (192×192, 512×512, 180×180), so no base size needs re-cutting. Two artwork issues remain beyond declarations: the mask-safe icon must be authored opaque and inside the safe zone, and `apple-touch-icon.png` must be flattened onto an opaque background — it is currently ~68 % transparent, which iOS renders against black.
 - **Resolved: one application description per locale.** All three locales get their own, each launching into its own language and carrying its own stable identity and declared language. Rejected alternatives: a single shared description (would relaunch every installer in English, failing Story 3 for two of three audiences) and runtime locale redirection (would add shared-script logic and a cache-busting bump).
 - **Resolved: browser-native install affordance only.** No in-page install button, banner, or hint. This keeps the feature to static files and locale metadata, adds no translated user-facing strings, and requires no dark-mode work — at the cost of discoverability, since the desktop install control is a small address-bar icon many visitors overlook. Raising discoverability is deliberately deferred to a possible follow-up once Layer 1 is verified in production.
 - **Resolved: no preview screenshots.** Android and Chromium desktop will show their minimal install dialogue (icon, name, origin). Nothing to produce, nothing to keep in step with the map's visual design.
