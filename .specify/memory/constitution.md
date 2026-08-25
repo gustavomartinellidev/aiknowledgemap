@@ -1,15 +1,27 @@
 <!--
 SYNC IMPACT REPORT
-- Version change: (none) → 1.0.0
-- Ratification date: 2026-08-25
+- Version change: 1.0.0 → 1.1.0
+- Ratification date: 2026-08-25 (unchanged)
 - Last amended: 2026-08-25
-- Principles: initial set (I–V) established
-  - Principle I reformulated from "Static, No-Backend Architecture (NON-NEGOTIABLE)"
-    to "Static-First Architecture": backend adoption is no longer forbidden but
-    gated behind a deliberate MAJOR-version constitutional amendment.
-- Added sections: Performance & Third-Party Debt; Governance
-- Templates status: plan-template.md ⚠ pending review · spec-template.md ⚠ pending review · tasks-template.md ⚠ pending review
-- Follow-up TODOs: fill ratification/amend dates before merge
+- Modified principles:
+  - II. Trilingual Parity (i18n) — expanded: partial locale updates are explicitly
+    a violation even when untouched locales still render.
+- Added principles:
+  - III. Cache-Busting on Cached Assets — promoted from an unnumbered draft section
+    to a numbered principle covering every file under /css/ and /js/, not only
+    style.css and app.js.
+- Renumbered (content unchanged):
+  - III. SEO & Accessibility Baseline → IV
+  - IV. Release Discipline → V
+  - V. Measurement Integrity → VI
+  - Cross-references in Governance updated to the new numbering.
+- Added sections: none
+- Removed sections: none
+- Templates status: plan-template.md ✅ reviewed · spec-template.md ✅ reviewed
+  review · tasks-template.md ✅ reviewed
+- Follow-up TODOs: CLAUDE.md summarizes these constraints as a 5-item list and now
+  omits the cache-busting principle as a governance rule; refresh it in a separate
+  change.
 -->
 
 # AI Knowledge Map Constitution
@@ -43,12 +55,25 @@ The three entry documents — root `index.html`, `/pt-br/index.html`, and
 `/es/index.html` — MUST stay structurally identical and be updated together in a
 single change whenever i18n content or any shared asset changes. No locale may
 drift ahead of the others. Language-specific differences are limited to
-translated copy and locale metadata (e.g., `hreflang`, `lang`).
+translated copy and locale metadata (e.g., `hreflang`, `lang`). Partial updates
+(one or two locales) are a violation, even when the untouched locales still
+render.
 
 Rationale: divergence between locales silently breaks SEO, accessibility, and
 user trust; lockstep edits make parity verifiable in review.
 
-### III. SEO & Accessibility Baseline (NON-NEGOTIABLE)
+### III. Cache-Busting on Cached Assets
+
+The site has no build step, and `_headers` applies a 24-hour cache to `/css/*`
+and `/js/*`. Therefore, any change to a file served from `/css/` or `/js/` — not
+only `style.css` or `app.js` — MUST bump the version query string (`?v=N` →
+`?v=N+1`) on every reference to that file, in all three `index.html` files, in
+the same pull request.
+
+Rationale: without the bump, returning visitors receive the cached (stale) asset
+for up to 24 hours after deploy, even after a Cloudflare purge.
+
+### IV. SEO & Accessibility Baseline (NON-NEGOTIABLE)
 
 Every entry document MUST preserve the validated on-page baseline: a canonical
 URL, `WebSite` Schema.org JSON-LD, a verified Open Graph image, correct heading
@@ -62,7 +87,7 @@ Principle II).
 Rationale: discoverability and accessibility are the product's core value; a
 measurable, enforced baseline prevents silent regressions.
 
-### IV. Release Discipline (NON-NEGOTIABLE)
+### V. Release Discipline (NON-NEGOTIABLE)
 
 `main` is protected by a Ruleset; direct pushes are forbidden. Every change MUST
 flow through: branch → push → pull request → green Cloudflare Pages status check
@@ -73,7 +98,7 @@ Rationale: the deploy preview and required check are the project's only
 integration gate; bypassing them removes the sole guarantee that production stays
 green.
 
-### V. Measurement Integrity
+### VI. Measurement Integrity
 
 Analytics event behavior MUST be validated in production only; Umami events are
 NOT expected to fire on `*.pages.dev` preview deployments and MUST NOT be treated
@@ -107,13 +132,14 @@ This constitution supersedes ad hoc practice. It is the source of truth for
 release and quality gates.
 
 - **Amendments**: proposed via PR that edits this file, reviewed against the
-  release discipline in Principle IV, and merged only with a green status check.
+  release discipline in Principle V, and merged only with a green status check.
 - **Versioning**: semantic. MAJOR = removal or redefinition of a principle;
   MINOR = a new principle or materially expanded guidance; PATCH = clarifications
   and wording that do not change intent. Every amendment updates the Sync Impact
   Report and the version line below.
-- **Compliance review**: each PR is checked for parity (Principle II), baseline
-  scores (Principle III), and release flow (Principle IV) before merge.
+- **Compliance review**: each PR is checked for parity (Principle II), asset
+  cache-busting (Principle III), baseline scores (Principle IV), and release flow
+  (Principle V) before merge.
 - **Dates**: recorded in ISO `YYYY-MM-DD`.
 
-**Version**: 1.0.0 · **Ratified**: 2026-08-25(RATIFICATION_DATE) · **Last Amended**: 2026-08-25(AMEND_DATE)
+**Version**: 1.1.0 | **Ratified**: 2026-08-25 | **Last Amended**: 2026-08-25
