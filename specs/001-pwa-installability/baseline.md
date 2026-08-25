@@ -37,6 +37,8 @@ Constitution Principle IV gates on the before/after comparison.
 
 | URL | Accessibility | SEO | Agentic-browsing | Best Practices |
 |---|---|---|---|---|
-| https://aiknowledgemap.org/ | | | | |
-| https://aiknowledgemap.org/pt-br/ | | | | |
-| https://aiknowledgemap.org/es/ | | | | |
+| https://aiknowledgemap.org/ | 1.0 | 1.0 | 3/3 | 0.58 |
+| https://aiknowledgemap.org/pt-br/ | 1.0 | 1.0 | 3/3 | 0.58 |
+| https://aiknowledgemap.org/es/ | 1.0 | 1.0 | 3/3 | 0.58 |
+**Lighthouse mode**: Mobile (throttled), Chrome DevTools. The post-change
+audit (T031) MUST use the same mode for a valid before/after comparison.
