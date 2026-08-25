@@ -10,10 +10,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- Installable as a Progressive Web App on all three locales: each of `/`, `/pt-br/`, and
+  `/es/` now ships its own web app manifest, so installing from a locale launches the map
+  back into that language in a standalone window with the correct app name and icon.
+- Maskable app icon (`public/android-chrome-maskable-512x512.png`) so Android adaptive-icon
+  platforms render the mark without letterboxing or a white box.
+- Standalone-launch metadata for iOS Safari, so an "Add to Home Screen" icon opens without
+  browser chrome and under the app name rather than the full page title.
 - Trilingual 404 page (`public/404.html`), served with a real HTTP 404 status.
 - GitHub Spec Kit scaffolding (`.specify/`, Claude Code skills) for spec-driven development; kept in the repo, excluded from the published site.
 
 ### Changed
+- Corrected the web app manifest name from "AI Map Explorer" to "AI Knowledge Map", matching
+  the brand used in the page titles, Open Graph metadata, and Schema.org data.
+- Flattened `public/apple-touch-icon.png` onto an opaque white background; it was ~68%
+  transparent, which iOS rendered against black on the home screen.
 - Serve the site from `./public/` and declare the Pages build output directory in `wrangler.toml`, keeping tooling and docs out of the deployed site.
 
 ### Removed
