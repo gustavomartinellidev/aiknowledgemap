@@ -186,15 +186,22 @@ Chrome expects; the Apple-prefixed form remains necessary for older iOS versions
 predate support for the standard name. Shipping both is the conventional compatibility
 pairing and costs one line.
 
-**Confidence — verify at implementation**: authoritative documentation for the exact
-Chrome console-warning behaviour was **not** obtained during research (MDN's meta-name
-reference does not cover vendor-prefixed names). The specific claim that including the
-non-prefixed tag *silences* the deprecation notice is therefore unconfirmed. This matters
-only for the Best Practices audit, which the constitution's Performance & Third-Party Debt
-section asks us not to regress. [quickstart.md](./quickstart.md) includes an explicit
-DevTools console check; if a Deprecated-API entry still appears, drop
-`apple-mobile-web-app-capable` and accept that iOS versions below Safari 17 launch with
-browser chrome — a P3 degradation, not a gate failure.
+**RESOLVED at implementation (T023, 2026-08-25)** — verified in DevTools against the
+branch preview: **no deprecation warning appears** for `apple-mobile-web-app-capable`
+while `mobile-web-app-capable` is present. Both tags stay on all three documents. Older
+iOS keeps standalone launch via the prefixed tag, current Chrome sees the standard name,
+and the Best Practices audit takes no Deprecated-API hit. No fallback needed.
+
+*Original uncertainty, kept for the record*: authoritative documentation for the exact
+Chrome console-warning behaviour was not obtained during research (MDN's meta-name
+reference does not cover vendor-prefixed names), so the claim that the non-prefixed tag
+silences the notice was carried as unconfirmed until measured. It is now measured.
+
+*Unrelated console finding*: the same check surfaced a Cloudflare RUM CORS error. It is
+third-party, pre-existing, and not introduced by this feature — see the constitution's
+Performance & Third-Party Debt section. Worth tracking separately, because Lighthouse's
+Best Practices category includes a "no browser errors logged to the console" audit, so it
+may be depressing that score independently of this work.
 
 ---
 
