@@ -53,13 +53,14 @@ Node schema (recursive):
 
 ## Project constitution
 
-`.specify/memory/constitution.md` (v1.0.0, ratified) is binding for this repo. The operative constraints:
+`.specify/memory/constitution.md` (v1.1.0, ratified) is binding for this repo. The operative constraints:
 
 1. **Static-first.** Any backend, dynamic runtime, or server-side component requires a written justification and a MAJOR constitutional amendment *before* implementation. Prefer static-compatible third parties (Buttondown, Umami).
-2. **Trilingual parity.** i18n content or shared-asset changes must touch all three entry documents in the same change; no locale may drift.
-3. **SEO/a11y baseline (non-negotiable).** Every entry document keeps its canonical URL, `WebSite` JSON-LD, verified OG image, correct heading order, and contrast. Lighthouse Accessibility = 1.0 and SEO = 1.0 on all three URLs before merge. Third-party property verification goes in DNS TXT, never in the HTML (it would break structural parity).
-4. **Release discipline (non-negotiable).** `main` is protected; direct pushes are forbidden. branch → push → PR → green Cloudflare Pages check → merge.
-5. **Measurement integrity.** Umami events do not fire on `*.pages.dev` previews; validate analytics in production only.
+2. **Trilingual parity.** i18n content or shared-asset changes must touch all three entry documents in the same change; no locale may drift. A partial update (one or two locales) is a violation even when the untouched locales still render.
+3. **Cache-busting.** Any change to a file served from `/css/` or `/js/` — not only `style.css` or `app.js` — must bump the `?v=N` query string on every reference to it, across all three `index.html`, in the same PR, because `_headers` caches those paths for 24 h.
+4. **SEO/a11y baseline (non-negotiable).** Every entry document keeps its canonical URL, `WebSite` JSON-LD, verified OG image, correct heading order, and contrast. Lighthouse Accessibility = 1.0 and SEO = 1.0 on all three URLs before merge. Third-party property verification goes in DNS TXT, never in the HTML (it would break structural parity).
+5. **Release discipline (non-negotiable).** `main` is protected; direct pushes are forbidden. branch → push → PR → green Cloudflare Pages check → merge.
+6. **Measurement integrity.** Umami events do not fire on `*.pages.dev` previews; validate analytics in production only.
 
 Spec-driven work uses GitHub Spec Kit: `.specify/` templates and the `speckit-*` skills in `.claude/skills/`.
 
