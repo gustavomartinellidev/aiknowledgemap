@@ -32,6 +32,13 @@ writing this spec found the following gaps, which set the scope:
 Icon **dimensions** were verified as correct (192×192, 512×512, 180×180), so no icon
 re-cutting is required for the base sizes.
 
+Three scope decisions were settled before planning (see Assumptions): each locale gets
+its **own** application description; the install affordance is the **browser's native
+control only**, with no site-built install UI; and **no preview screenshots** are
+declared. Together these keep the feature to static files plus locale metadata in the
+three entry documents — no new UI component, no new shared-script code, and therefore no
+cache-busting bump.
+
 ## User Scenarios & Testing *(mandatory)*
 
 ### User Story 1 - Install on an Android phone (Priority: P1)
@@ -151,7 +158,8 @@ resulting icon and observe the chrome, icon, and title.
 - **FR-006**: The application description MUST declare a launch colour and a theme colour so that the launch and window chrome match the site's visual identity rather than a browser default.
 - **FR-007**: The application description MUST declare a stable application identity that does not change if the launch URL is later adjusted, so that an update is not treated by installed clients as a different app.
 - **FR-008**: The application description MUST declare the language of its own text so that assistive technology and app listings render the app name correctly.
-- **FR-009**: Launching the installed app MUST return the visitor to the map in the locale they installed from. [NEEDS CLARIFICATION: Q1 — should each locale ship its own application description with a locale-specific launch URL and translated app name, or should all three share one description launching into English?]
+- **FR-009**: Launching the installed app MUST return the visitor to the map in the locale they installed from. Each locale therefore ships its **own** application description, declaring a launch destination and a stable identity scoped to that locale, and its own translated descriptive text and declared language.
+- **FR-009a**: The three application descriptions MUST be created and maintained as a set — added, edited, and reviewed in the same change — so that no locale's installed experience drifts from the others. Only locale-varying values (launch destination, identity, declared language, translated description) may differ between them; every structural field MUST be present in all three.
 - **FR-010**: All three entry documents MUST reference the application description and any app metadata in the same change, keeping their element structure identical; only metadata *values* may differ per locale.
 - **FR-011**: The site MUST declare the platform-specific metadata iOS Safari requires to launch a home-screen icon without browser chrome and under the correct title.
 - **FR-012**: The site MUST NOT register a service worker, cache assets for offline use, request notification permission, or register for background sync as part of this feature.
@@ -160,15 +168,15 @@ resulting icon and observe the chrome, icon, and title.
 - **FR-015**: The site MUST NOT regress its published quality baseline: automated audits MUST continue to report Accessibility = 1.0, SEO = 1.0, and agentic-browsing = 1.0 on all three locale URLs, with no new third-party cookie and no Best-Practices regression.
 - **FR-016**: If any file served from the cached asset paths (`/css/`, `/js/`) is modified by this feature, every reference to it in all three entry documents MUST have its version query string bumped in the same change.
 - **FR-017**: Any newly published static file that constitutes a top-level resource MUST be reflected in the site's discovery files (sitemap with full hreflang alternates, and `llms.txt` where applicable).
-- **FR-018**: The site MUST provide the install affordance described in the user journeys. [NEEDS CLARIFICATION: Q2 — is the browser's own native install control sufficient, or must the site also present its own in-page install button/prompt (which would add a UI component, shared-script strings in three locales, and a dark-mode treatment)?]
-- **FR-019**: The install dialogue presented by the browser MUST identify the app clearly enough for a visitor to recognise what they are installing. [NEEDS CLARIFICATION: Q3 — should the application description include preview screenshots, which unlock a richer install dialogue on Android and desktop but require producing and maintaining new image assets?]
+- **FR-018**: The install affordance MUST be the browser's own native install control. The site MUST NOT add an in-page install button, banner, prompt, or dismissible hint, and MUST NOT intercept or defer the browser's install prompt. Consequently this feature adds no new user-visible UI, no new translated user-facing strings, and no new dark-mode treatment.
+- **FR-019**: The install dialogue presented by the browser MUST identify the app clearly enough for a visitor to recognise what they are installing, using the declared name, icon, and origin alone. Preview screenshots are NOT declared, so the minimal install dialogue is the accepted and intended experience.
 - **FR-020**: The application description and icon files MUST be verified against the **live deployment**, not only the source tree, confirming they are reachable and served in a form browsers accept.
 
 ### Key Entities
 
-- **Application Identity**: What a visitor's device records when they install — the app's name, short label, language, stable identity, launch destination, window mode, and colours. Currently declared once, globally, and partly incorrect.
+- **Application Identity**: What a visitor's device records when they install — the app's name, short label, language, stable identity, launch destination, window mode, and colours. Currently declared once, globally, and partly incorrect; becomes one declaration per locale.
 - **App Icon Set**: The artwork used for the home-screen icon, launcher, task switcher, and launch screen, in the sizes and shapes each platform demands. Base sizes exist and are correctly dimensioned; a mask-safe variant is missing.
-- **Locale Entry Point**: One of the three URLs (`/`, `/pt-br/`, `/es/`) a visitor may install from. Each must yield an install that is correct for that audience while keeping the three documents structurally identical.
+- **Locale Entry Point**: One of the three URLs (`/`, `/pt-br/`, `/es/`) a visitor may install from. Each must yield an install that is correct for that audience while keeping the three documents structurally identical — the reference to the application description occupies the same structural position in all three, and only its value differs, exactly as `canonical` and `og:locale` already do.
 - **Quality Baseline**: The audited scores (Accessibility, SEO, agentic-browsing) and the structural-parity check that together gate merge. This feature must leave all of them intact and should improve the installability audit.
 
 ## Success Criteria *(mandatory)*
@@ -191,7 +199,11 @@ resulting icon and observe the chrome, icon, and title.
 ## Assumptions
 
 - **Existing assets are the starting point.** The current `site.webmanifest`, `android-chrome-192x192.png`, `android-chrome-512x512.png`, `apple-touch-icon.png`, and favicons are corrected and extended rather than replaced. Their dimensions were verified correct (192×192, 512×512, 180×180); only declarations and, for the mask-safe icon, artwork treatment are in question.
-- **Brand name.** Absent direction to the contrary, the app name becomes **"AI Knowledge Map"** (matching `og:site_name`, the JSON-LD `name`, and the page titles) and the short label becomes **"AI Map"**, replacing the current "AI Map Explorer" / "AI Map". This is treated as a correction of an inconsistency, not a rebrand.
+- **Resolved: one application description per locale.** All three locales get their own, each launching into its own language and carrying its own stable identity and declared language. Rejected alternatives: a single shared description (would relaunch every installer in English, failing Story 3 for two of three audiences) and runtime locale redirection (would add shared-script logic and a cache-busting bump).
+- **Resolved: browser-native install affordance only.** No in-page install button, banner, or hint. This keeps the feature to static files and locale metadata, adds no translated user-facing strings, and requires no dark-mode work — at the cost of discoverability, since the desktop install control is a small address-bar icon many visitors overlook. Raising discoverability is deliberately deferred to a possible follow-up once Layer 1 is verified in production.
+- **Resolved: no preview screenshots.** Android and Chromium desktop will show their minimal install dialogue (icon, name, origin). Nothing to produce, nothing to keep in step with the map's visual design.
+- **Brand name is not translated.** Absent direction to the contrary, the app name becomes **"AI Knowledge Map"** (matching `og:site_name`, the JSON-LD `name`, and the page titles) and the short label becomes **"AI Map"**, replacing the current "AI Map Explorer" / "AI Map". This is treated as a correction of an inconsistency, not a rebrand.
+- **The brand name stays identical across all three locales**, while the app's *descriptive* text and declared language are translated. Evidence: `og:site_name` and the JSON-LD `name` are already the untranslated "AI Knowledge Map" on all three entry documents; only the pt-BR `og:title` translates the brand, and it is the lone outlier. If the intent is instead a translated app name per locale (e.g. "Mapa de Conhecimento de IA" / "Mapa de Conocimiento de IA", with short labels that survive ~12-character truncation), that is a one-line change to this assumption — flag it at `/speckit-plan`.
 - **Colours.** The existing declared theme colour (`#2563eb`) and white launch background are retained. The site's dark-mode toggle is a runtime state and is **not** mirrored into per-scheme launch colours in this feature.
 - **Scope of the app.** All three locales belong to one application; navigating between them inside the installed window stays in the window.
 - **HTTPS.** The site is already served over HTTPS by the existing host, satisfying the transport precondition for installation without any change.
@@ -209,5 +221,7 @@ resulting icon and observe the chrome, icon, and title.
 - Background sync, periodic sync, and background fetch.
 - App-store packaging (Google Play / TWA, Microsoft Store, App Store).
 - File-handling, share-target, protocol-handling, shortcut, and widget declarations.
+- Preview screenshots in the application description, and the richer install dialogue they unlock.
+- Any site-built install UI: install buttons, banners, prompts, dismissible hints, or deferral of the browser's own prompt.
 - Analytics instrumentation of install or launch events.
 - Any change to the map's data, layout algorithm, or visual design.
