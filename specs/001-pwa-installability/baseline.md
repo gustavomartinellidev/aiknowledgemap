@@ -43,6 +43,25 @@ Constitution Principle IV gates on the before/after comparison.
 **Lighthouse mode**: Mobile (throttled), Chrome DevTools. The post-change
 audit (T031) MUST use the same mode for a valid before/after comparison.
 ---
+## Post-merge production audit (T031), 2026-08-25
+
+Measured on production (aiknowledgemap.org), mobile mode, same as the baseline.
+
+| URL | Accessibility | SEO | Agentic-browsing | Best Practices |
+|---|---|---|---|---|
+| / | 1.0 | 1.0 | 3/3 | 0.58 |
+| /pt-br/ | 1.0 | 1.0 | 3/3 | 0.58 |
+| /es/ | 1.0 | 1.0 | 3/3 | 0.58 |
+
+**Result**: the three constitution-gated metrics (Accessibility, SEO,
+agentic-browsing) are identical to the pre-change baseline on all three URLs —
+no regression. Best Practices unchanged (third-party ceiling, documented debt).
+
+**Performance**: 88 (baseline 90). Within Lighthouse run-to-run variance; not a
+metric the constitution gates on. No feature mechanism plausibly affects it —
+the change adds only an off-critical-path manifest + icon fetch.
+
+**Note**: the Cloudflare RUM CORS error present only on the pages.dev preview origin, not in production — no console-error penalty on the live site.
 
 ## Gate D — preview verification (T030), 2026-08-25
 
