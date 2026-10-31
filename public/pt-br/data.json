@@ -9776,6 +9776,219 @@
       ]
     },
     {
+      "name": "Segurança em IA",
+      "type": "folder",
+      "short_definition": "Segurança em IA é a prática de proteger sistemas de inteligência artificial, incluindo seus dados, modelos e infraestrutura, contra ameaças adversariais como manipulação, envenenamento, extração e uso indevido, por meio de fortalecimento, testes e monitoramento ao longo do ciclo de vida do sistema.",
+      "children": [
+        {
+          "name": "Frameworks de ameaças",
+          "type": "folder",
+          "short_definition": "Um framework de ameaças é um catálogo estruturado e mantido publicamente de táticas, técnicas e vulnerabilidades adversariais que mapeia como sistemas de IA podem ser atacados e fornece um vocabulário comum para defensores, red teams e auditores.",
+          "children": [
+            {
+              "name": "MITRE ATLAS",
+              "type": "url",
+              "short_definition": "ATLAS (Adversarial Threat Landscape for Artificial-Intelligence Systems) é uma base de conhecimento viva e de acesso global sobre táticas e técnicas adversariais contra sistemas habilitados por IA, baseada em observações de ataques reais e em demonstrações realistas de red teams de IA e grupos de segurança.",
+              "url": "https://atlas.mitre.org/"
+            },
+            {
+              "name": "OWASP GenAI Security Project",
+              "type": "url",
+              "short_definition": "O OWASP GenAI Security Project é uma iniciativa global, orientada pela comunidade e liderada por especialistas, que cria orientações e recursos de código aberto gratuitos para compreender e mitigar preocupações de segurança e proteção em aplicações e na adoção de IA generativa.",
+              "url": "https://genai.owasp.org/"
+            },
+            {
+              "name": "OWASP Top 10 para Aplicações de LLM 2025",
+              "type": "url",
+              "short_definition": "O OWASP Top 10 para Aplicações de LLM é uma lista classificada dos riscos de segurança mais críticos em aplicações construídas sobre grandes modelos de linguagem, como injeção de prompt, divulgação de informações sensíveis e vulnerabilidades da cadeia de suprimentos, com orientações de prevenção e mitigação.",
+              "url": "https://genai.owasp.org/llm-top-10/"
+            },
+            {
+              "name": "OWASP Top 10 para Aplicações Agênticas",
+              "type": "url",
+              "short_definition": "O OWASP Top 10 para Aplicações Agênticas é uma lista classificada dos riscos mais críticos em sistemas de IA que planejam, decidem e agem com autonomia, abrangendo questões como manipulação de objetivos, uso indevido de ferramentas e supervisão humana inadequada, com orientações de mitigação.",
+              "url": "https://genai.owasp.org/2025/12/09/owasp-top-10-for-agentic-applications-the-benchmark-for-agentic-security-in-the-age-of-autonomous-ai/"
+            },
+            {
+              "name": "NIST AI 100-2 E2025 - Aprendizado de Máquina Adversarial: Taxonomia e Terminologia de Ataques e Mitigações",
+              "type": "url",
+              "short_definition": "O NIST AI 100-2 E2025 é um relatório do NIST que define uma taxonomia e uma terminologia padronizadas para aprendizado de máquina adversarial, classificando ataques e mitigações para sistemas de IA preditiva e generativa a fim de apoiar avaliação de riscos e defesa consistentes.",
+              "url": "https://csrc.nist.gov/pubs/ai/100/2/e2025/final"
+            }
+          ]
+        },
+        {
+          "name": "Tipos de ataque",
+          "type": "folder",
+          "short_definition": "Um tipo de ataque é uma categoria de técnica adversarial que explora uma fraqueza específica na forma como um sistema de IA é treinado, implantado ou utilizado, organizada aqui segundo a distinção do NIST entre IA preditiva e IA generativa.",
+          "children": [
+            {
+              "name": "Ataques a IA preditiva",
+              "type": "folder",
+              "short_definition": "Ataques a IA preditiva visam modelos de aprendizado de máquina que classificam, pontuam ou preveem, explorando fraquezas em seus dados de treinamento, parâmetros ou fronteiras de decisão para provocar saídas incorretas, vazar informações ou roubar o modelo.",
+              "children": [
+                {
+                  "name": "Ataques de evasão",
+                  "type": "folder",
+                  "short_definition": "Ataques de evasão criam entradas, frequentemente chamadas de exemplos adversariais, sutilmente alteradas para que um modelo treinado as classifique incorretamente no momento da inferência, enquanto a alteração permanece imperceptível ou plausível para humanos."
+                },
+                {
+                  "name": "Envenenamento de dados",
+                  "type": "folder",
+                  "short_definition": "Envenenamento de dados é a corrupção deliberada dos dados de treinamento de um modelo para degradar seu desempenho, enviesar suas saídas ou implantar comportamentos ocultos que um atacante pode explorar posteriormente."
+                },
+                {
+                  "name": "Ataques de backdoor",
+                  "type": "folder",
+                  "short_definition": "Ataques de backdoor inserem um gatilho oculto em um modelo durante o treinamento, de modo que ele se comporte normalmente com entradas comuns, mas produza uma saída escolhida pelo atacante sempre que o padrão de gatilho estiver presente."
+                },
+                {
+                  "name": "Extração de modelo",
+                  "type": "folder",
+                  "short_definition": "Extração de modelo, também chamada de roubo de modelo, reconstrói uma cópia funcional de um modelo proprietário consultando sistematicamente suas predições, possibilitando o roubo de propriedade intelectual e a preparação de ataques offline."
+                },
+                {
+                  "name": "Inferência de pertencimento",
+                  "type": "folder",
+                  "short_definition": "Inferência de pertencimento determina se um registro específico fez parte do conjunto de treinamento de um modelo analisando suas saídas, expondo informações privadas sobre indivíduos representados nos dados."
+                },
+                {
+                  "name": "Inversão de modelo",
+                  "type": "folder",
+                  "short_definition": "Inversão de modelo reconstrói características sensíveis dos dados de treinamento, como rostos ou atributos médicos, a partir das saídas ou parâmetros de um modelo, transformando o próprio modelo em uma fonte de vazamento de dados."
+                }
+              ]
+            },
+            {
+              "name": "Ataques a IA generativa",
+              "type": "folder",
+              "short_definition": "Ataques a IA generativa visam grandes modelos de linguagem e outros sistemas generativos, explorando seu comportamento de seguir instruções, dados de treinamento memorizados, integrações e autonomia para manipular saídas ou ações.",
+              "children": [
+                {
+                  "name": "Injeção de prompt",
+                  "type": "folder",
+                  "short_definition": "Injeção de prompt manipula um modelo de linguagem inserindo instruções em sua entrada, seja diretamente pelo usuário ou indiretamente por meio de conteúdo que o modelo processa, levando-o a ignorar suas instruções originais ou a executar ações não intencionais."
+                },
+                {
+                  "name": "Jailbreaking",
+                  "type": "folder",
+                  "short_definition": "Jailbreaking é o uso de prompts elaborados ou estratégias de conversa para contornar as diretrizes de segurança e as políticas de conteúdo de um modelo, induzindo-o a produzir saídas que foi projetado para recusar."
+                },
+                {
+                  "name": "Extração de dados de treinamento",
+                  "type": "folder",
+                  "short_definition": "Extração de dados de treinamento é a recuperação de conteúdo memorizado do treinamento, como dados pessoais ou textos protegidos por direitos autorais, por meio de prompts que levam um modelo generativo a reproduzir esse conteúdo literalmente."
+                },
+                {
+                  "name": "Divulgação de informações sensíveis",
+                  "type": "folder",
+                  "short_definition": "Divulgação de informações sensíveis ocorre quando uma aplicação de IA generativa revela dados confidenciais, prompts de sistema, credenciais ou lógica proprietária por meio de suas saídas, geralmente devido a tratamento de dados e controles de saída insuficientes."
+                },
+                {
+                  "name": "Tratamento inseguro de saídas",
+                  "type": "folder",
+                  "short_definition": "Tratamento inseguro de saídas é a falha em validar ou sanitizar as saídas do modelo antes de repassá-las a outros componentes, permitindo que o conteúdo gerado desencadeie execução de código, injeção ou escalonamento de privilégios a jusante."
+                },
+                {
+                  "name": "Agência excessiva",
+                  "type": "folder",
+                  "short_definition": "Agência excessiva é o risco de um agente de IA receber mais permissões, ferramentas ou autonomia do que sua tarefa exige, possibilitando ações prejudiciais quando o agente é manipulado, enganado ou simplesmente comete um erro."
+                },
+                {
+                  "name": "Ataques à cadeia de suprimentos de IA",
+                  "type": "folder",
+                  "short_definition": "Ataques à cadeia de suprimentos de IA comprometem os componentes dos quais um sistema de IA depende, como modelos pré-treinados, conjuntos de dados, plugins ou servidores de ferramentas, de modo que o comportamento malicioso seja herdado por todos os sistemas construídos sobre eles."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Defesas",
+          "type": "folder",
+          "short_definition": "Uma defesa é um controle técnico ou procedimental que reduz a probabilidade ou o impacto de ataques a sistemas de IA, aplicado antes da implantação por meio de testes, durante a operação por meio de controles em tempo de execução ou ao longo do ciclo de vida por meio de práticas de desenvolvimento seguro.",
+          "children": [
+            {
+              "name": "Garantia e testes",
+              "type": "folder",
+              "short_definition": "Defesas de garantia e testes avaliam a robustez e a segurança de um sistema de IA antes e durante a implantação, revelando vulnerabilidades por meio de exercícios adversariais estruturados e avaliações mensuráveis.",
+              "children": [
+                {
+                  "name": "Red teaming de IA",
+                  "type": "folder",
+                  "short_definition": "Red teaming de IA é a prática estruturada de simular comportamento adversarial contra um sistema de IA para descobrir vulnerabilidades, saídas prejudiciais e violações de políticas antes que atacantes ou usuários reais as encontrem."
+                },
+                {
+                  "name": "Testes de robustez adversarial",
+                  "type": "folder",
+                  "short_definition": "Testes de robustez adversarial medem como o desempenho de um modelo se degrada sob entradas deliberadamente perturbadas ou maliciosas, quantificando sua resistência a evasão e manipulação."
+                },
+                {
+                  "name": "Avaliações de segurança",
+                  "type": "folder",
+                  "short_definition": "Avaliações de segurança são benchmarks e conjuntos de testes padronizados que verificam se um modelo produz saídas prejudiciais, enviesadas ou inseguras em categorias de risco definidas, apoiando decisões de lançamento e monitoramento contínuo."
+                }
+              ]
+            },
+            {
+              "name": "Controles em tempo de execução",
+              "type": "folder",
+              "short_definition": "Controles em tempo de execução são defesas que operam enquanto um sistema de IA está em uso, inspecionando entradas e saídas, restringindo ações e detectando abusos em tempo real.",
+              "children": [
+                {
+                  "name": "Guardrails",
+                  "type": "folder",
+                  "short_definition": "Guardrails são filtros de entrada e saída, políticas e restrições aplicados em torno de um modelo para bloquear conteúdo não permitido, impor formatos e manter o comportamento do sistema dentro de limites definidos."
+                },
+                {
+                  "name": "Detecção de injeção de prompt",
+                  "type": "folder",
+                  "short_definition": "Detecção de injeção de prompt identifica entradas e conteúdos recuperados que tentam sobrescrever as instruções de um modelo, usando classificadores, correspondência de padrões ou isolamento de dados não confiáveis em relação a instruções confiáveis."
+                },
+                {
+                  "name": "Monitoramento de abuso e limitação de taxa",
+                  "type": "folder",
+                  "short_definition": "Monitoramento de abuso e limitação de taxa acompanham padrões de uso e restringem o volume de requisições para detectar e desacelerar ataques automatizados, como extração de modelo, credential stuffing e sondagem de prompts em larga escala."
+                },
+                {
+                  "name": "Controles com humano no circuito",
+                  "type": "folder",
+                  "short_definition": "Controles com humano no circuito exigem revisão ou aprovação humana antes que um sistema de IA execute ações de alto impacto, limitando os danos que saídas manipuladas ou errôneas podem causar."
+                }
+              ]
+            },
+            {
+              "name": "Ciclo de vida e cadeia de suprimentos",
+              "type": "folder",
+              "short_definition": "Defesas de ciclo de vida e cadeia de suprimentos protegem a forma como modelos e dados são construídos, obtidos, armazenados e acessados, reduzindo a exposição a envenenamento, adulteração e vazamento ao longo do desenvolvimento e da operação.",
+              "children": [
+                {
+                  "name": "Treinamento adversarial",
+                  "type": "folder",
+                  "short_definition": "Treinamento adversarial melhora a robustez de um modelo ao incluir exemplos adversariais em seus dados de treinamento, para que ele aprenda a classificar corretamente entradas perturbadas."
+                },
+                {
+                  "name": "Privacidade diferencial",
+                  "type": "folder",
+                  "short_definition": "Privacidade diferencial é um arcabouço matemático que adiciona ruído calibrado durante o treinamento ou a consulta, de modo que as saídas de um modelo revelem quase nada sobre qualquer registro individual de seus dados de treinamento."
+                },
+                {
+                  "name": "Proveniência de dados e modelos",
+                  "type": "folder",
+                  "short_definition": "Proveniência de dados e modelos estabelece registros verificáveis de onde conjuntos de dados e modelos vêm, como foram produzidos e se foram alterados, usando práticas como assinatura, hashing e listas de materiais de IA (AI BOM)."
+                },
+                {
+                  "name": "Controles de acesso a modelos",
+                  "type": "folder",
+                  "short_definition": "Controles de acesso a modelos restringem quem e o que pode consultar, baixar ou modificar um modelo e seus pesos, limitando a superfície de ataque para extração, adulteração e uso não autorizado."
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
       "name": "Inteligência Artificial Ética, Legal e Regulamentar",
       "type": "folder",
       "short_definition": "Inteligência Artificial Ética, Legal e Regulamentar refere-se ao domínio interdisciplinar preocupado em garantir que o desenvolvimento, a implantação e o uso de sistemas de inteligência artificial cumpram princípios éticos, requisitos legais e estruturas regulatórias. Ele aborda questões como justiça, responsabilidade, transparência, privacidade, segurança e governança ao longo do ciclo de vida da IA.",
