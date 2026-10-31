@@ -10,6 +10,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- Mobile drill-down navigation: on viewports up to 960 px wide — and always in the
+  installed app — the map is replaced by a one-level-at-a-time list with a breadcrumb and
+  a back control, so every node is reachable by taps alone with no sideways scrolling.
+  Tapping a name opens the existing definition panel as a bottom sheet (tap-to-copy with
+  citation unchanged); linked leaves open in a new tab. Desktop is unchanged.
 - Installable as a Progressive Web App on all three locales: each of `/`, `/pt-br/`, and
   `/es/` now ships its own web app manifest, so installing from a locale launches the map
   back into that language in a standalone window with the correct app name and icon.
