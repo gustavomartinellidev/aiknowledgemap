@@ -9775,6 +9775,219 @@
         }
       ]
     },
+        {
+          "name": "AI Security",
+          "type": "folder",
+          "short_definition": "AI Security is the practice of protecting artificial intelligence systems, including their data, models, and infrastructure, against adversarial threats such as manipulation, poisoning, extraction, and misuse, through hardening, testing, and monitoring across the system lifecycle.",
+          "children": [
+            {
+              "name": "Threat frameworks",
+              "type": "folder",
+              "short_definition": "A threat framework is a structured, publicly maintained catalog of adversary tactics, techniques, and vulnerabilities that maps how AI systems can be attacked and provides a shared vocabulary for defenders, red teams, and auditors.",
+              "children": [
+                {
+                  "name": "MITRE ATLAS",
+                  "type": "url",
+                  "short_definition": "ATLAS (Adversarial Threat Landscape for Artificial-Intelligence Systems) is a globally accessible, living knowledge base of adversary tactics and techniques against AI-enabled systems based on real-world attack observations and realistic demonstrations from AI red teams and security groups.",
+                  "url": "https://atlas.mitre.org/"
+                },
+                {
+                  "name": "OWASP GenAI Security Project",
+                  "type": "url",
+                  "short_definition": "The OWASP GenAI Security Project is a global, community-driven and expert-led initiative that creates freely available open source guidance and resources for understanding and mitigating security and safety concerns in generative AI applications and adoption.",
+                  "url": "https://genai.owasp.org/"
+                },
+                {
+                  "name": "OWASP Top 10 for LLM Applications 2025",
+                  "type": "url",
+                  "short_definition": "The OWASP Top 10 for LLM Applications is a ranked list of the most critical security risks in applications built on large language models, such as prompt injection, sensitive information disclosure, and supply chain vulnerabilities, with guidance on prevention and mitigation.",
+                  "url": "https://genai.owasp.org/llm-top-10/"
+                },
+                {
+                  "name": "OWASP Top 10 for Agentic Applications",
+                  "type": "url",
+                  "short_definition": "The OWASP Top 10 for Agentic Applications is a ranked list of the most critical risks in AI systems that plan, decide, and act with autonomy, covering issues such as goal manipulation, tool misuse, and inadequate human oversight, with mitigation guidance.",
+                  "url": "https://genai.owasp.org/2025/12/09/owasp-top-10-for-agentic-applications-the-benchmark-for-agentic-security-in-the-age-of-autonomous-ai/"
+                },
+                {
+                  "name": "NIST AI 100-2 E2025 - Adversarial Machine Learning: A Taxonomy and Terminology of Attacks and Mitigations",
+                  "type": "url",
+                  "short_definition": "NIST AI 100-2 E2025 is a NIST report that defines a standardized taxonomy and terminology for adversarial machine learning, classifying attacks and mitigations for both predictive and generative AI systems to support consistent risk assessment and defense.",
+                  "url": "https://csrc.nist.gov/pubs/ai/100/2/e2025/final"
+                }
+              ]
+            },
+            {
+              "name": "Attack types",
+              "type": "folder",
+              "short_definition": "An attack type is a category of adversarial technique that targets a specific weakness in how an AI system is trained, deployed, or used, and is organized here following the NIST distinction between predictive and generative AI.",
+              "children": [
+                {
+                  "name": "Predictive AI attacks",
+                  "type": "folder",
+                  "short_definition": "Predictive AI attacks target machine learning models that classify, score, or forecast, exploiting weaknesses in their training data, parameters, or decision boundaries to cause wrong outputs, leak information, or steal the model.",
+                  "children": [
+                    {
+                      "name": "Evasion attacks",
+                      "type": "folder",
+                      "short_definition": "Evasion attacks craft inputs, often called adversarial examples, that are subtly altered so that a trained model misclassifies them at inference time while the change remains imperceptible or plausible to humans."
+                    },
+                    {
+                      "name": "Data poisoning",
+                      "type": "folder",
+                      "short_definition": "Data poisoning is the deliberate corruption of a model's training data to degrade its performance, bias its outputs, or implant hidden behaviors that an attacker can later exploit."
+                    },
+                    {
+                      "name": "Backdoor attacks",
+                      "type": "folder",
+                      "short_definition": "Backdoor attacks embed a hidden trigger in a model during training so that it behaves normally on ordinary inputs but produces an attacker-chosen output whenever the trigger pattern is present."
+                    },
+                    {
+                      "name": "Model extraction",
+                      "type": "folder",
+                      "short_definition": "Model extraction, also called model stealing, reconstructs a functional copy of a proprietary model by systematically querying its predictions, enabling intellectual property theft and offline attack preparation."
+                    },
+                    {
+                      "name": "Membership inference",
+                      "type": "folder",
+                      "short_definition": "Membership inference determines whether a specific record was part of a model's training set by analyzing its outputs, exposing private information about individuals represented in the data."
+                    },
+                    {
+                      "name": "Model inversion",
+                      "type": "folder",
+                      "short_definition": "Model inversion reconstructs sensitive features of training data, such as faces or medical attributes, from a model's outputs or parameters, turning the model itself into a source of data leakage."
+                    }
+                  ]
+                },
+                {
+                  "name": "Generative AI attacks",
+                  "type": "folder",
+                  "short_definition": "Generative AI attacks target large language models and other generative systems, exploiting their instruction-following behavior, memorized training data, integrations, and autonomy to manipulate outputs or actions.",
+                  "children": [
+                    {
+                      "name": "Prompt injection",
+                      "type": "folder",
+                      "short_definition": "Prompt injection manipulates a language model by inserting instructions into its input, either directly by the user or indirectly through content the model processes, causing it to ignore its intended instructions or perform unintended actions."
+                    },
+                    {
+                      "name": "Jailbreaking",
+                      "type": "folder",
+                      "short_definition": "Jailbreaking is the use of crafted prompts or conversational strategies to bypass a model's safety guidelines and content policies, inducing it to produce outputs it was designed to refuse."
+                    },
+                    {
+                      "name": "Training data extraction",
+                      "type": "folder",
+                      "short_definition": "Training data extraction is the recovery of memorized training content, such as personal data or copyrighted text, by prompting a generative model in ways that cause it to reproduce that content verbatim."
+                    },
+                    {
+                      "name": "Sensitive information disclosure",
+                      "type": "folder",
+                      "short_definition": "Sensitive information disclosure occurs when a generative AI application reveals confidential data, system prompts, credentials, or proprietary logic through its outputs, often due to insufficient data handling and output controls."
+                    },
+                    {
+                      "name": "Insecure output handling",
+                      "type": "folder",
+                      "short_definition": "Insecure output handling is the failure to validate or sanitize model outputs before they are passed to other components, allowing generated content to trigger code execution, injection, or privilege escalation downstream."
+                    },
+                    {
+                      "name": "Excessive agency",
+                      "type": "folder",
+                      "short_definition": "Excessive agency is the risk that an AI agent is granted more permissions, tools, or autonomy than its task requires, enabling harmful actions when the agent is manipulated, misled, or simply wrong."
+                    },
+                    {
+                      "name": "AI supply chain attacks",
+                      "type": "folder",
+                      "short_definition": "AI supply chain attacks compromise the components an AI system depends on, such as pretrained models, datasets, plugins, or tool servers, so that malicious behavior is inherited by every system built on them."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "Defenses",
+              "type": "folder",
+              "short_definition": "A defense is a technical or procedural control that reduces the likelihood or impact of attacks on AI systems, applied before deployment through testing, during operation through runtime controls, or across the lifecycle through secure development practices.",
+              "children": [
+                {
+                  "name": "Assurance and testing",
+                  "type": "folder",
+                  "short_definition": "Assurance and testing defenses evaluate an AI system's robustness and safety before and during deployment, surfacing vulnerabilities through structured adversarial exercises and measurable evaluations.",
+                  "children": [
+                    {
+                      "name": "AI red teaming",
+                      "type": "folder",
+                      "short_definition": "AI red teaming is the structured practice of simulating adversarial behavior against an AI system to discover vulnerabilities, harmful outputs, and policy violations before real attackers or users encounter them."
+                    },
+                    {
+                      "name": "Adversarial robustness testing",
+                      "type": "folder",
+                      "short_definition": "Adversarial robustness testing measures how a model's performance degrades under deliberately perturbed or malicious inputs, quantifying its resistance to evasion and manipulation."
+                    },
+                    {
+                      "name": "Safety evaluations",
+                      "type": "folder",
+                      "short_definition": "Safety evaluations are standardized benchmarks and test suites that assess whether a model produces harmful, biased, or unsafe outputs across defined risk categories, supporting release decisions and ongoing monitoring."
+                    }
+                  ]
+                },
+                {
+                  "name": "Runtime controls",
+                  "type": "folder",
+                  "short_definition": "Runtime controls are defenses that operate while an AI system is in use, inspecting inputs and outputs, constraining actions, and detecting abuse in real time.",
+                  "children": [
+                    {
+                      "name": "Guardrails",
+                      "type": "folder",
+                      "short_definition": "Guardrails are input and output filters, policies, and constraints placed around a model to block disallowed content, enforce formats, and keep the system's behavior within defined boundaries."
+                    },
+                    {
+                      "name": "Prompt injection detection",
+                      "type": "folder",
+                      "short_definition": "Prompt injection detection identifies inputs and retrieved content that attempt to override a model's instructions, using classifiers, pattern matching, or isolation of untrusted data from trusted instructions."
+                    },
+                    {
+                      "name": "Abuse monitoring and rate limiting",
+                      "type": "folder",
+                      "short_definition": "Abuse monitoring and rate limiting track usage patterns and restrict request volume to detect and slow automated attacks such as model extraction, credential stuffing, and large-scale prompt probing."
+                    },
+                    {
+                      "name": "Human-in-the-loop controls",
+                      "type": "folder",
+                      "short_definition": "Human-in-the-loop controls require human review or approval before an AI system takes high-impact actions, limiting the damage that manipulated or erroneous outputs can cause."
+                    }
+                  ]
+                },
+                {
+                  "name": "Lifecycle and supply chain",
+                  "type": "folder",
+                  "short_definition": "Lifecycle and supply chain defenses secure how models and data are built, sourced, stored, and accessed, reducing exposure to poisoning, tampering, and leakage throughout development and operation.",
+                  "children": [
+                    {
+                      "name": "Adversarial training",
+                      "type": "folder",
+                      "short_definition": "Adversarial training improves a model's robustness by including adversarial examples in its training data so that it learns to classify perturbed inputs correctly."
+                    },
+                    {
+                      "name": "Differential privacy",
+                      "type": "folder",
+                      "short_definition": "Differential privacy is a mathematical framework that adds calibrated noise during training or querying so that a model's outputs reveal almost nothing about any individual record in its training data."
+                    },
+                    {
+                      "name": "Data and model provenance",
+                      "type": "folder",
+                      "short_definition": "Data and model provenance establishes verifiable records of where datasets and models come from, how they were produced, and whether they have been altered, using practices such as signing, hashing, and AI bills of materials."
+                    },
+                    {
+                      "name": "Model access controls",
+                      "type": "folder",
+                      "short_definition": "Model access controls restrict who and what can query, download, or modify a model and its weights, limiting the attack surface for extraction, tampering, and unauthorized use."
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
     {
       "name": "Ethical, Legal & Regulatory AI",
       "type": "folder",
