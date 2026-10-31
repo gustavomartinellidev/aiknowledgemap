@@ -54,21 +54,43 @@ limited to version strings.
 Headless screenshots of `main` (port 8001) and the branch (port 8000) at a desktop width,
 after the 1,250 ms load transition settles.
 
+**Capture method matters** (learned during implementation, 2026-10-31). Two methods give
+false positives and must not be used:
+
+- Chrome's one-shot `--screenshot` flag races the D3 transition and web-font loading;
+  identical pages differed by ~100k pixels run to run.
+- CDP `Page.captureScreenshot` with `captureBeyondViewport: true` transiently resizes the
+  viewport to **1×1** while capturing. On this branch that flips `(max-width: 960px)`,
+  mounts the drill-down (whose heading focus scrolls the page 138 px), then restores the
+  viewport — so fixed-position elements land 138 px low in the image. The product is
+  behaving per contract M3 for a real resize; the capture is the artifact.
+
+Use instead: a CDP session with the deterministic-text flags
+(`--font-render-hinting=none --disable-lcd-text --disable-font-subpixel-positioning
+--force-device-scale-factor=1`), a **fixed viewport taller than the document**
+(`Emulation.setDeviceMetricsOverride` 1400×2600), a 3.5 s settle wait, `document.fonts.ready`,
+and `Page.captureScreenshot` **without** `captureBeyondViewport`. A ~60-line Node 22 script
+(global `WebSocket`, no dependencies) is sufficient; keep it outside the repo.
+
 ```bash
-mkdir -p /tmp/akm-shots
-for loc in "" "pt-br/" "es/"; do
-  tag=${loc%/}; tag=${tag:-en}
-  google-chrome --headless=new --disable-gpu --hide-scrollbars --window-size=1400,2200 \
-    --virtual-time-budget=4000 --screenshot=/tmp/akm-shots/main-$tag.png  "http://localhost:8001/$loc"
-  google-chrome --headless=new --disable-gpu --hide-scrollbars --window-size=1400,2200 \
-    --virtual-time-budget=4000 --screenshot=/tmp/akm-shots/branch-$tag.png "http://localhost:8000/$loc"
-  compare -metric AE /tmp/akm-shots/main-$tag.png /tmp/akm-shots/branch-$tag.png /tmp/akm-shots/diff-$tag.png; echo "  <- $tag differing pixels"
-done
+# with such a driver, per locale:
+#   OUT=main-$tag.png   node cdp.mjs http://localhost:8001/$loc shot.json
+#   OUT=branch-$tag.png node cdp.mjs http://localhost:8000/$loc shot.json
+#   compare -metric AE main-$tag.png branch-$tag.png diff-$tag.png
 ```
 
-**Expected**: `0` differing pixels for `en`, `pt-br`, `es`. Any non-zero result: open
-`diff-<tag>.png` to locate the regression. (Web-font timing can cause false positives;
-re-run once before investigating.)
+Also launch each capture with a **fresh `--user-data-dir`**: headless Chrome otherwise
+shares a disk cache, so blocked font hosts can still be served from cache and the two
+sides stop being comparable. Block `fonts.googleapis.com` / `fonts.gstatic.com` on both
+sides, so both render the same fallback font (`measureLabel` caches widths before the
+web font arrives anyway, so layout is unaffected either way).
+
+**Calibrate first**: capture `main` at least three times. Captures were found to fall
+into **two raster clusters** (0 px apart within a cluster, a constant ~186 px apart
+between clusters, all inside the SVG label column; visually identical). **Expected**:
+every branch capture is byte-identical (0 px) to one of `main`'s clusters, for `en`,
+`pt-br`, `es`. A branch capture that matches neither cluster, or a difference outside
+the label column, is a regression: open `diff-<tag>.png` to locate it.
 
 Also diff the source: `git diff main -- public/js/app.js` must show `update(` with **no**
 changed lines inside its body, and `git diff main -- public/css/style.css` must show only

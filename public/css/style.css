@@ -275,6 +275,22 @@ header p {
     line-height: 1.4;
 }
 
+/* Drill-down conditions (same as the JS mode predicate): the panel becomes a bottom sheet
+   that always fits the viewport. !important beats the inline left/top that showPanel sets. */
+@media (max-width: 960px), (display-mode: standalone) {
+    #hover-panel {
+        position: fixed;
+        left: 1rem !important;
+        right: 1rem;
+        top: auto !important;
+        bottom: 1rem;
+        min-width: 0;
+        max-width: none;
+        max-height: 60vh;
+        overflow-y: auto;
+    }
+}
+
 .dark-toggle-container {
     position: fixed;
     top: 1.5rem;
@@ -364,6 +380,141 @@ path.link {
     stroke-width: 2px;
 }
 
+/* Drill-down (≤ 960 px / standalone) — these elements exist only in drill-down mode */
+#body.dd-mode {
+    overflow: visible; /* lets .dd-head stick to the window instead of #body's own scroll box */
+}
+
+.dd {
+    padding: 1rem;
+}
+
+.dd-head {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background: var(--card-bg);
+    padding: 0.5rem 0;
+}
+
+.dd-crumbs ol {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.25rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.dd-crumbs li + li::before {
+    content: "›";
+    color: var(--text-muted);
+    padding: 0 0.25rem;
+}
+
+.dd-crumb,
+.dd-crumb-current {
+    display: inline-flex;
+    align-items: center;
+    min-height: 48px;
+    word-break: break-word;
+    font: inherit;
+    font-size: 0.9rem;
+}
+
+.dd-crumb {
+    background: none;
+    border: 0;
+    padding: 0 0.25rem;
+    color: var(--primary);
+    cursor: pointer;
+    text-align: left;
+}
+
+.dd-crumb-current {
+    color: var(--text-main);
+    font-weight: 600;
+}
+
+.dd-back {
+    display: inline-flex;
+    align-items: center;
+    min-height: 48px;
+    min-width: 48px;
+    padding: 0 1rem;
+    margin-top: 0.25rem;
+    font: inherit;
+    font-size: 0.9rem;
+    color: var(--primary);
+    background: none;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    cursor: pointer;
+}
+
+.dd-title {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.35rem;
+    color: var(--text-main);
+    margin: 1rem 0 0.5rem;
+}
+
+.dd-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.dd-row {
+    display: flex;
+    align-items: stretch;
+    gap: 0.5rem;
+    border-bottom: 1px solid var(--border);
+}
+
+.dd-name {
+    flex: 1;
+    min-height: 48px;
+    padding: 0.75rem 0.25rem;
+    text-align: left;
+    font: inherit;
+    font-size: 1rem;
+    color: var(--text-main);
+    background: none;
+    border: 0;
+    cursor: pointer;
+    white-space: normal;
+    overflow-wrap: anywhere;
+}
+
+.dd-open {
+    flex: 0 0 48px;
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    color: var(--primary);
+    background: none;
+    border: 0;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.dd-title:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 4px;
+}
+
+.dd-name:focus-visible,
+.dd-open:focus-visible,
+.dd-crumb:focus-visible,
+.dd-back:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: -2px;
+}
+
 footer {
     text-align: center;
     padding: 4rem 1rem;
@@ -414,6 +565,27 @@ footer {
     font-family: 'Inter', sans-serif;
     font-size: 14px;
     font-weight: 500;
+}
+
+.dark-Mode .dd-head {
+    background: #1e293b;
+}
+
+.dark-Mode .dd-name,
+.dark-Mode .dd-crumb-current,
+.dark-Mode .dd-title {
+    color: var(--text-main);
+}
+
+.dark-Mode .dd-crumb,
+.dark-Mode .dd-back,
+.dark-Mode .dd-open {
+    color: #60a5fa;
+}
+
+.dark-Mode .dd-row,
+.dark-Mode .dd-back {
+    border-color: var(--border);
 }
 
 .dark-Mode .info-card form input[type="email"] {

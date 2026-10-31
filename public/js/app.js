@@ -13,16 +13,9 @@ const diagonal = d3.linkHorizontal()
   .x(d => d.y)
   .y(d => d.x);
 
-const vis = d3.select("#body")
-  .append("svg")
-  .attr("width", width + margin[1] + margin[3])
-  .attr("height", height + margin[0] + margin[2])
-  .append("g")
-  .attr("transform", `translate(${margin[3]},${margin[0]})`);
-
-const measureCanvas = vis.append("g")
-  .attr("class", "text-measure")
-  .style("visibility", "hidden");
+// Assigned by mountTree(); null while the drill-down view is mounted.
+let vis = null;
+let measureCanvas = null;
 
 const labelWidthCache = {};
 function measureLabel(name) {
@@ -292,6 +285,37 @@ function getSignupMessage(lang) {
   return messages[lang] || messages["en"];
 }
 
+// Drill-down strings, keyed like getSignupMessage (getLang() -> "en" | "pt-br" | "es").
+const DD_STRINGS = {
+  "en": {
+    home: "Home",
+    back: "Back",
+    breadcrumb: "Breadcrumb",
+    open: (name) => `Open ${name}`,
+    openLink: (name) => `Open link: ${name}`
+  },
+  "pt-br": {
+    home: "Início",
+    back: "Voltar",
+    breadcrumb: "Trilha de navegação",
+    open: (name) => `Abrir ${name}`,
+    openLink: (name) => `Abrir link: ${name}`
+  },
+  "es": {
+    home: "Inicio",
+    back: "Volver",
+    breadcrumb: "Ruta de navegación",
+    open: (name) => `Abrir ${name}`,
+    openLink: (name) => `Abrir enlace: ${name}`
+  }
+};
+
+function ddText(key, name) {
+  const table = DD_STRINGS[getLang()] || DD_STRINGS["en"];
+  const value = table[key];
+  return typeof value === "function" ? value(name) : value;
+}
+
 function toggle(d) {
   if (d.children) {
     d._children = d.children;
@@ -308,8 +332,12 @@ function goDark() {
 
 document.querySelector(".btn-toggle").addEventListener("click", goDark);
 
-d3.json("data.json").then(data => {
-  root = d3.hierarchy(data);
+/* =========================
+   TREE RENDERER LIFECYCLE
+   ========================= */
+
+// Initial collapsed state (everything below the root closed), as on first load.
+function resetTree() {
   root.x0 = height / 2;
   root.y0 = 0;
 
@@ -324,8 +352,260 @@ d3.json("data.json").then(data => {
   if (root.children) {
     root.children.forEach(collapse);
   }
+}
 
-  update(root);
+function mountTree() {
+  vis = d3.select("#body")
+    .append("svg")
+    .attr("width", width + margin[1] + margin[3])
+    .attr("height", height + margin[0] + margin[2])
+    .append("g")
+    .attr("transform", `translate(${margin[3]},${margin[0]})`);
+
+  measureCanvas = vis.append("g")
+    .attr("class", "text-measure")
+    .style("visibility", "hidden");
+
+  if (root) {
+    resetTree();
+    update(root);
+  }
+}
+
+function unmountTree() {
+  const svg = d3.select("#body svg");
+  svg.interrupt().selectAll("*").interrupt();
+  svg.remove();
+  clearTimeout(hideTimer);
+  hoverPanel.classed("hidden", true);
+  vis = null;
+  measureCanvas = null;
+}
+
+/* =========================
+   DRILLDOWN RENDERER
+   ========================= */
+
+let ddPath = [];        // root ... current level; one list visible at a time
+let ddContainer = null;
+let ddDocClick = null;
+
+// The tree renderer moves children into _children on collapse. This is the only way the
+// drill-down reads children; it never writes either field and never calls toggle/update.
+function kidsOf(d) {
+  return d.children || d._children || [];
+}
+
+function mountDrilldown() {
+  const body = document.getElementById("body");
+  ddContainer = document.createElement("div");
+  ddContainer.className = "dd";
+  body.classList.add("dd-mode");
+  body.appendChild(ddContainer);
+  ddPath = root ? [root] : [];
+  // Touch has no mouseout: a tap outside the panel (and outside the controls that open
+  // it) closes it at once. Everything else keeps the panel's existing behaviour.
+  ddDocClick = (event) => {
+    const t = event.target;
+    if (!t.closest) return;
+    if (t.closest("#hover-panel") || t.closest(".dd-name") || t.closest(".dd-crumb[aria-current]")) return;
+    clearTimeout(hideTimer);
+    hoverPanel.classed("hidden", true);
+  };
+  document.addEventListener("click", ddDocClick);
+  renderScreen();
+}
+
+function unmountDrilldown() {
+  if (ddDocClick) document.removeEventListener("click", ddDocClick);
+  ddDocClick = null;
+  if (ddContainer) ddContainer.remove();
+  ddContainer = null;
+  document.getElementById("body").classList.remove("dd-mode");
+  clearTimeout(hideTimer);
+  hoverPanel.classed("hidden", true);
+  ddPath = [];
+}
+
+// Same event and fields as the desktop map; "drill" and "up" are the two drill-down
+// actions, and the label/depth are those of the level shown after the action.
+function ddTrack(action, node) {
+  if (window.umami) {
+    umami.track("node_click", {
+      node_label: node.data.name,
+      depth: node.depth,
+      action: action,
+      lang: getLang()
+    });
+  }
+}
+
+function drill(node) {
+  ddPath.push(node);
+  ddTrack("drill", node);
+  renderScreen();
+}
+
+function upTo(index) {
+  ddPath.length = index + 1;
+  ddTrack("up", ddPath[index]);
+  renderScreen();
+}
+
+function back() {
+  if (ddPath.length > 1) upTo(ddPath.length - 2);
+}
+
+function ddEl(tag, className, text) {
+  const node = document.createElement(tag);
+  if (className) node.className = className;
+  if (text !== undefined) node.textContent = text;   // never innerHTML with node data
+  return node;
+}
+
+function renderScreen() {
+  if (!ddContainer || ddPath.length === 0) return;
+
+  clearTimeout(hideTimer);
+  hoverPanel.classed("hidden", true);
+
+  const current = ddPath[ddPath.length - 1];
+  const atTop = ddPath.length === 1;
+
+  // Sticky header: breadcrumb + back control.
+  const head = ddEl("div", "dd-head");
+  const nav = ddEl("nav", "dd-crumbs");
+  nav.setAttribute("aria-label", ddText("breadcrumb"));
+  const ol = document.createElement("ol");
+  ddPath.forEach((node, index) => {
+    const li = document.createElement("li");
+    const label = index === 0 ? ddText("home") : node.data.name;
+    const isCurrent = index === ddPath.length - 1;
+    if (isCurrent && !atTop) {
+      li.className = "dd-crumb-current";
+      li.setAttribute("aria-current", "page");
+      li.textContent = label;
+    } else {
+      const crumb = ddEl("button", "dd-crumb", label);
+      crumb.type = "button";
+      if (atTop) {
+        // At the top level "Home" has nowhere to go: it opens the root's own definition.
+        crumb.setAttribute("aria-current", "page");
+        crumb.addEventListener("click", (event) => showPanel(event, root));
+      } else {
+        crumb.addEventListener("click", () => upTo(index));
+      }
+      li.appendChild(crumb);
+    }
+    ol.appendChild(li);
+  });
+  nav.appendChild(ol);
+  head.appendChild(nav);
+
+  if (!atTop) {
+    const backBtn = ddEl("button", "dd-back", ddText("back"));
+    backBtn.type = "button";
+    backBtn.addEventListener("click", back);
+    head.appendChild(backBtn);
+  }
+
+  const title = ddEl("h2", "dd-title", current.data.name);
+  title.tabIndex = -1;
+
+  // One row per child: the name (reads) and, for sections, a trailing control (goes).
+  const list = ddEl("ul", "dd-list");
+  kidsOf(current).forEach(node => {
+    const row = ddEl("li", "dd-row");
+    const name = ddEl("button", "dd-name", node.data.name);
+    name.type = "button";
+    name.addEventListener("click", (event) => showPanel(event, node));   // same panel as desktop
+    row.appendChild(name);
+
+    if (kidsOf(node).length > 0) {
+      const open = ddEl("button", "dd-open");
+      open.type = "button";
+      open.setAttribute("aria-label", ddText("open", node.data.name));
+      const glyph = ddEl("span", null, "›");
+      glyph.setAttribute("aria-hidden", "true");
+      open.appendChild(glyph);
+      open.addEventListener("click", () => drill(node));
+      row.appendChild(open);
+    } else if (node.data.url) {
+      // Linked leaf: same anchor shape and outbound event as the desktop label link.
+      const link = ddEl("a", "dd-open");
+      link.href = node.data.url;
+      link.target = "_blank";
+      link.rel = "noopener noreferrer";
+      link.setAttribute("aria-label", ddText("openLink", node.data.name));
+      const glyph = ddEl("span", null, "↗");
+      glyph.setAttribute("aria-hidden", "true");
+      link.appendChild(glyph);
+      link.addEventListener("click", () => {
+        if (window.umami) {
+          umami.track("outbound_click", {
+            node_label: node.data.name,
+            url: node.data.url,
+            lang: getLang()
+          });
+        }
+      });
+      row.appendChild(link);
+    }
+
+    list.appendChild(row);
+  });
+
+  ddContainer.replaceChildren(head, title, list);
+  title.focus();
+}
+
+/* =========================
+   MODE CONTROLLER
+   ========================= */
+
+// Same conditions as the CSS: (max-width: 960px) matches style.css byte-for-byte,
+// and every locale's manifest declares display: standalone.
+const mqNarrow = window.matchMedia("(max-width: 960px)");
+const mqStandalone = window.matchMedia("(display-mode: standalone)");
+let currentMode = null;
+
+function isDrilldown() {
+  return mqNarrow.matches || mqStandalone.matches;
+}
+
+function subscribe(mq, fn) {
+  if (mq.addEventListener) mq.addEventListener("change", fn);
+  else mq.addListener(fn);
+}
+
+// Idempotent: unmounts the outgoing renderer fully before mounting the incoming one,
+// and each renderer starts from its initial state (no state crosses modes).
+function applyMode() {
+  const next = isDrilldown() ? "drilldown" : "tree";
+  if (next === currentMode) return;
+  if (currentMode === "tree") unmountTree();
+  if (currentMode === "drilldown") unmountDrilldown();
+  if (next === "tree") mountTree(); else mountDrilldown();
+  currentMode = next;
+}
+
+subscribe(mqNarrow, applyMode);
+subscribe(mqStandalone, applyMode);
+
+// Runs after every module-level declaration above; the script is deferred, so this is
+// still before data arrives and before first paint (the desktop SVG exists pre-data, as before).
+applyMode();
+
+d3.json("data.json").then(data => {
+  root = d3.hierarchy(data);
+  applyMode();
+  if (currentMode === "tree") {
+    resetTree();
+    update(root);
+  } else {
+    ddPath = [root];
+    renderScreen();
+  }
 });
 
 /* =========================
